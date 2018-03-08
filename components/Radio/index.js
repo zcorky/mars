@@ -6,8 +6,11 @@ import { Avatar as rAvatar } from 'elfen';
 
 const Card = styled.div`
   // height: 90px;
-  margin-bottom: 1rem;
+  // margin-bottom: 1rem;
   // overflow: hidden;
+
+  // display: flex;
+  // justify-content: center;
 
   &:after {
     display: block;

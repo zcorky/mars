@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'dva';
 import styled from 'styled-components';
 
 import Simulator from 'elfen-component-simulator';
@@ -6,8 +7,7 @@ import Page, { PageHeader as rPageHeader, PageFooter as rPageFooter, PageBody as
 
 import Input from '../../components/Input';
 
-import Text from '../../../components/Text';
-import Radio from '../../../components/Radio';
+import { getCard } from '../../../components/index';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -46,37 +46,31 @@ const PageFooter = styled(rPageFooter)`
   }
 `;
 
-export default class Chat extends PureComponent {
+const Item = styled.div`
+  margin-bottom: 10px;
+`;
+
+class Chat extends PureComponent {
   render() {
+    const { messages } = this.props;
+  
     return (
       <Wrapper>
         <Simulator>
           <Page>
             <PageHeader>智能客服</PageHeader>
             <PageBody>
-              <Radio
-                avatar="https://imadmin2.zhongan.io/image/file/83176b53-ab36-4dd4-a132-c03ec11d0aa3"
-                choices={[
-                  {
-                    key: 'c1',
-                    title: '新手上路',
-                    icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4',
-                    description: '1年驾龄',
-                  },
-                  {
-                    key: 'c2',
-                    title: '轻车熟路',
-                    icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',
-                    description: '2~10驾龄',
-                  },
-                  {
-                    key: 'c3',
-                    title: '老司机',
-                    icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
-                    description: '大于10年驾龄',
-                  },
-                ]}
-              />
+              {messages.map(({ id, type, content }) => {
+                const Component = getCard(type);
+                
+                if (!Component) return null;
+
+                return (
+                  <Item key={id} >
+                    <Component {...content} />
+                  </Item>
+                );
+              })}
             </PageBody>
             <PageFooter>
               <Input />
@@ -87,3 +81,9 @@ export default class Chat extends PureComponent {
     );
   }
 }
+
+const mapState = state => ({
+  messages: Object.values(state.message),
+});
+
+export default connect(mapState)(Chat); 

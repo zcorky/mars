@@ -23,7 +23,7 @@ const Card = styled.div`
 
 export default () => (
   <Wrapper>
-    {[Radio].map((Component, i) => (
+    {[Radio, Radio, Radio, Radio].map((Component, i) => (
       <Card key={i}>
         {Component && <Component />}
       </Card>
