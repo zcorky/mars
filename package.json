@@ -1,0 +1,23 @@
+{
+  "name": "intelligent-customer-service-cards",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "zero",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "umi dev",
+    "build": "umi build"
+  },
+  "dependencies": {
+    "dva": "^2.1.0",
+    "elfen": "^2.0.3",
+    "elfen-component-beautiful-scrollbar": "^0.0.1",
+    "elfen-component-page": "^0.0.3",
+    "elfen-component-simulator": "^0.0.2",
+    "styled-components": "^3.2.1",
+    "umi": "^1.0.4",
+    "umi-plugin-dva": "^0.2.0",
+    "xss": "^0.3.7"
+  }
+}
