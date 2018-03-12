@@ -3,6 +3,7 @@ export default {
 
   state: {
     count: 0,
+    data: [],
   },
 
   reducers: {
@@ -18,5 +19,12 @@ export default {
         count: count - 1,
       };
     },
+    save(state, { payload: message }) {
+      const data = state.data.slice();
+      return {
+        ...state,
+        data: [...data, message],
+      }
+    }
   },
 };

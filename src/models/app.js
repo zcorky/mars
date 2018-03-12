@@ -3,6 +3,7 @@ export default {
 
   state: {
     count: 0,
+
   },
 
   reducers: {
@@ -17,6 +18,7 @@ export default {
         ...rest,
         count: count - 1,
       };
-    },
+    }
+    
   },
 };

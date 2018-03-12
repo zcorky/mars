@@ -8,6 +8,12 @@ import Input from '../../components/Input';
 
 import Text from '../../../components/Text';
 import Radio from '../../../components/Radio';
+import Checkbox from '../../../components/Checkbox';
+import List from '../../../components/List';
+
+import getComponent from '../../../components/utils'
+import { get } from 'https';
+
 
 const Wrapper = styled.div`
   position: absolute;
@@ -47,36 +53,29 @@ const PageFooter = styled(rPageFooter)`
 `;
 
 export default class Chat extends PureComponent {
+ 
   render() {
+    // console.log(this.props.data);
+    // console.log(getComponent('TEXT'));
+    const { data } = this.props;
     return (
       <Wrapper>
         <Simulator>
           <Page>
             <PageHeader>智能客服</PageHeader>
             <PageBody>
-              <Radio
-                avatar="https://imadmin2.zhongan.io/image/file/83176b53-ab36-4dd4-a132-c03ec11d0aa3"
-                choices={[
-                  {
-                    key: 'c1',
-                    title: '新手上路',
-                    icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4',
-                    description: '1年驾龄',
-                  },
-                  {
-                    key: 'c2',
-                    title: '轻车熟路',
-                    icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',
-                    description: '2~10驾龄',
-                  },
-                  {
-                    key: 'c3',
-                    title: '老司机',
-                    icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
-                    description: '大于10年驾龄',
-                  },
-                ]}
-              />
+              {
+                data.map((message, index) => {
+                  const Component = getComponent(message.type);
+                  return (
+                    <Component
+                      key={index}
+                      avator="https://imadmin2.zhongan.io/image/file/83176b53-ab36-4dd4-a132-c03ec11d0aa3" 
+                      choices={message.content.choices}
+                    />
+                  );
+                })
+              }
             </PageBody>
             <PageFooter>
               <Input />

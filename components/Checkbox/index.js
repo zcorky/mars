@@ -169,7 +169,7 @@ const Choice = ({ id, group = 'choice', title, description, icon, checked, onChe
   </ChoiceWrapper>
 );
 
-export default class Radio extends PureComponent {
+export default class Checkbox extends PureComponent {
 
   static propTypes = {
     id: PropTypes.string.isRequired,

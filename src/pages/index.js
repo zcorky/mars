@@ -9,11 +9,18 @@ import theme from '../../components/theme';
 import Card from './_components/card';
 import Chat from './_components/chat';
 
-const mapState = state => state.app;
+import saveMessages from '../services/saveMessages';
+
+const mapState = state => {
+  return {
+    data: state.message.data,
+  }
+};
 
 const mapActions = dispatch => ({
   onIncrease: () => dispatch({ type: 'app/+' }),
   onDecrease: () => dispatch({ type: 'app/-' }),
+  onSave: (type) => saveMessages(type, dispatch),
 });
 
 const Wrapper = styled.div`
@@ -45,15 +52,21 @@ const Content = styled.div`
 createScrollBarStyle();
 
 class App extends PureComponent {
+
+  // state = {
+  //   load: false,
+  // }
+  
   render() {
+    const { data, onSave }  = this.props;
     return (
       <ThemeProvider theme={theme}>
         <Wrapper>
           <SideBar>
-            <Card />
+            <Card onSave={onSave}/>
           </SideBar>
           <Content>
-            <Chat />
+            <Chat data={data}/>
           </Content>
         </Wrapper>
       </ThemeProvider>

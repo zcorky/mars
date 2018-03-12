@@ -96,7 +96,7 @@ const ButtonWrapper = styled.button`
   display: ${props => (props.hide ? 'none' : 'block')};
 `;
 
-class RText extends PureComponent {
+export default class RText extends PureComponent {
   static label = '文本消息';
   static WAITING_TIME = 1000;
   static LOADING_TIME = 1000 * 5;
@@ -180,7 +180,7 @@ class RText extends PureComponent {
 
   render() {
     const {
-      ack, activeAck, text, avatar, onSelect, commands = [], onCommand, ...others
+      ack, activeAck, text = '123', avatar, onSelect, commands = [], onCommand, ...others
     } = this.props;
     const { client } = others;
     const ackSuccess = this.state.ackSuccess;
@@ -188,7 +188,7 @@ class RText extends PureComponent {
 
     return (
       <TextWrapper client={client} onClick={onSelect}>
-        <Avatar client={client} size={40} src={avatar} />
+        {/* <Avatar client={client} size={40} src={avatar} /> */}
         {commands.length === 0 ? (
           <Text
             client={client}
@@ -241,6 +241,6 @@ class RText extends PureComponent {
   }
 }
 
-export default () => (
-  <div>123</div>
-);
+// export default () => (
+//   <div>123</div>
+// );
