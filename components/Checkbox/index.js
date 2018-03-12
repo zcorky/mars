@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { Avatar as rAvatar } from 'elfen';
 
+const NULL = () => null;
 const Card = styled.div`
   // height: 90px;
   margin-bottom: 1rem;
@@ -79,11 +80,11 @@ const ChoiceWrapper = styled.div`
   // box-shadow: ${props => (props.checked ? '0 1px 4px 0 rgba(32,172,244,0.56)' : 'none')};
 `;
 
-const ChoiceRadioWrapper = styled.div`
+const ChoiceCheckboxWrapper = styled.div`
 
 `;
 
-const ChoiceRadioLabel = styled.label`
+const ChoiceCheckboxLabel = styled.label`
   position: absolute;
   top: 0;
   left: 0;
@@ -92,7 +93,7 @@ const ChoiceRadioLabel = styled.label`
   border-radius: 6px;
 `;
 
-const ChoiceRadioInput = styled.input`
+const ChoiceCheckboxInput = styled.input`
   visibility: hidden;
   position: absolute;
   top: 0;
@@ -146,18 +147,18 @@ const ChoiceLogo = styled.img`
   height: 21px;
 `;
 
-const ChoiceRadio = ({ checked, name, id, onChecked }) => (
-  <ChoiceRadioWrapper>
-    <ChoiceRadioInput
-      type="radio"
+const ChoiceCheckbox = ({ checked, name, id, onChecked }) => (
+  <ChoiceCheckboxWrapper>
+    <ChoiceCheckboxInput
+      type="checkbox"
       name={name}
       id={id}
       value={id}
       defaultChecked={checked}
       onClick={onChecked}
     />
-    <ChoiceRadioLabel htmlFor={id} className="radio-label" />
-  </ChoiceRadioWrapper>
+    <ChoiceCheckboxLabel htmlFor={id} className="radio-label" />
+  </ChoiceCheckboxWrapper>
 );
 
 const Choice = ({ id, group = 'choice', title, description, icon, checked, onChecked }) => (
@@ -165,7 +166,7 @@ const Choice = ({ id, group = 'choice', title, description, icon, checked, onChe
     <ChoiceTitle>{title}</ChoiceTitle>
     <ChoiceDescription>{description}</ChoiceDescription>
     <ChoiceLogo src={icon} />
-    <ChoiceRadio name={group} id={id} checked={checked} onChecked={onChecked} />
+    <ChoiceCheckbox name={group} id={id} checked={checked} onChecked={onChecked} />
   </ChoiceWrapper>
 );
 
@@ -176,54 +177,62 @@ export default class Checkbox extends PureComponent {
     step: PropTypes.number.isRequired,
     avatar: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    choices: PropTypes.arrayOf(
-      PropTypes.shape({
-        icon: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        key: PropTypes.string.isRequired,
-      }),
-    ),
+    // choices: PropTypes.arrayOf(
+    //   PropTypes.shape({
+    //     icon: PropTypes.string.isRequired,
+    //     title: PropTypes.string.isRequired,
+    //     description: PropTypes.string.isRequired,
+    //     key: PropTypes.string.isRequired,
+    //   }),
+    // ),
     confirmLabel: PropTypes.string.isRequired,
     confirmType: PropTypes.string.isRequired,
     conformFields: PropTypes.array.isRequired,
-    onMessage: PropTypes.func.isRequired,
+    // onMessage: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
-    choices: [
-      {
-        key: 'c1',
-        title: '选项一',
-        icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4',
-        description: '1年驾龄',
-      },
-      {
-        key: 'c2',
-        title: '选项二',
-        icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',
-        description: '2~10驾龄',
-      },
-      {
-        key: 'c3',
-        title: '选项三',
-        icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
-        description: '大于10年驾龄',
-      },
-    ],
     confirmType: 'dialog',
     confirmLabel: '确定',
     confirmFields: ['id', 'step', 'detailId'],
+    content: {}
   };
 
   state = {
     checked: {}, // this.props.choices ? this.props.choices[0] : {},
+    group: [],
   };
+
+  static choices = [
+    {
+      icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4', // 自定义icon链接
+      label: '选项一', // 文案
+      value: "string | number", // 选择的实际值, 必须唯一
+      description: '1年驾龄', // 描述
+    }, {
+        icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',  // 自定义icon链接
+        label: '选项二', // 文案
+        value: "string | number", // 选择的实际值, 必须唯一
+        description: '2~10驾龄', // 描述
+    }, {
+        icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
+        label: '选项三', // 文案
+        value: "string | number", // 选择的实际值, 必须唯一
+        description: '大于10年驾龄', // 描述
+    }
+  ];
 
   onChecked = (checked) => {
     this.setState({ checked });
+    if (this.state.group.indexOf(checked) < 0) {
+      this.state.group.push(checked);
+    } else {
+      this.state.group.splice(this.state.group.indexOf(checked), 1); // uncheck
+      this.setState({
+        checked: {},
+      });
+    }
   }
-  // onChecked = key => (this.state.checked = key);
 
   onConfirm = () => {
     const {
@@ -231,24 +240,31 @@ export default class Checkbox extends PureComponent {
       onMessage,
     } = this.props;
 
-    if (Object.keys(this.state.checked).length === 0) return false;
+    if (Object.keys(this.state.group).length === 0) return false;
 
     const data = confirmFields.reduce((a, b) => Object.assign(a, { [b]: this.props[b] }), {});
-    onMessage(confirmType, {
-      ...data,
-      // value: this.state.checked.key,
-      selection: this.state.checked.title, // @TODO Bad Backend
-      label: this.state.checked.title,
-    });
+  
+    // onMessage(confirmType, {
+    //   ...data,
+    //   // value: this.state.checked.key,
+    //   selection: checked.title, // @TODO Bad Backend
+    //   label: checked.title,
+    // });
+
+    console.log('onMessage: ');
+    this.state.group.map((e) => console.log(e.description));
+
   };
 
   render() {
     const {
-      id, step, avatar, title, choices,
-      confirmLabel, ...rest
+      id, step, avatar, content, confirmLabel, ...rest
     } = this.props;
+
+    const { title = "单选卡片标题" , choices = Checkbox.choices } = content;
+
     const group = `${id}:${step}.${Math.random()}`;
-    const disabled = Object.keys(this.state.checked).length === 0;
+    const disabled = Object.keys(this.state.group).length === 0;
 
     return (
       <Card {...rest} key={id}>
@@ -261,10 +277,10 @@ export default class Checkbox extends PureComponent {
                 key={index.toString()}
                 group={group}
                 id={`${e.key}..${Math.random()}`}
-                title={e.title}
+                title={e.label}
                 description={e.description}
                 icon={e.icon}
-                onChecked={() => this.onChecked(e, index)}
+                onChecked={() => this.onChecked(e)}
               />
             ))}
           </ChoicesWrapper>

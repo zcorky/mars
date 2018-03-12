@@ -8,4 +8,5 @@ export default {
     Radio,
     Checkbox,
     List,
+    TextImage,
 }

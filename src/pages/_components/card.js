@@ -5,6 +5,7 @@ import Text from '../../../components/Text';
 import Radio from '../../../components/Radio';
 import Checkbox from '../../../components/Checkbox';
 import List from '../../../components/List';
+import TextImage from '../../../components/TextImage';
 
 // import * as CardTemplates from '../../../components';
 
@@ -52,6 +53,11 @@ export default class Cards extends React.Component{
           </Card>
         ))}
         {[List].map((Component, i) => (
+          <Card key={i} type="button" onClick={() => this.onClick('LIST')}>
+            {Component && <Component />}
+          </Card>
+        ))}
+        {[TextImage].map((Component, i) => (
           <Card key={i} type="button" onClick={() => this.onClick('LIST')}>
             {Component && <Component />}
           </Card>

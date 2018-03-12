@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import { Avatar as rAvatar } from 'elfen';
 
+const NULL = () => null;
+
 const Card = styled.div`
   // height: 90px;
   margin-bottom: 1rem;
@@ -49,11 +51,12 @@ const Title = styled.div`
 `;
 
 const ChoicesWrapper = styled.div`
-  padding: 1.2rem 2.2rem 0 2.2rem;
+  padding: 1.2rem 2.2rem 1.0rem 2.2rem;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
+  width: 200px;
 `;
 
 const Button = styled.a`
@@ -191,64 +194,86 @@ export default class Radio extends PureComponent {
   }
 
   static defaultProps = {
-    choices: [
-      {
-        key: 'c1',
-        title: '选项一',
-        icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4',
-        description: '1年驾龄',
-      },
-      {
-        key: 'c2',
-        title: '选项二',
-        icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',
-        description: '2~10驾龄',
-      },
-      {
-        key: 'c3',
-        title: '选项三',
-        icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
-        description: '大于10年驾龄',
-      },
-    ],
+    // choices: [
+    //     {
+    //         icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4', // 自定义icon链接
+    //         label: '选项一', // 文案
+    //         value: "string | number", // 选择的实际值, 必须唯一
+    //         description: '1年驾龄', // 描述
+    //     }, {
+    //         icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',  // 自定义icon链接
+    //         label: '选项二', // 文案
+    //         value: "string | number", // 选择的实际值, 必须唯一
+    //         description: '2~10驾龄', // 描述
+    //     }, {
+    //         icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
+    //         label: '选项三', // 文案
+    //         value: "string | number", // 选择的实际值, 必须唯一
+    //         description: '大于10年驾龄', // 描述
+    //     }
+    // ],
     confirmType: 'dialog',
     confirmLabel: '确定',
     confirmFields: ['id', 'step', 'detailId'],
+    content: {}
   };
 
   state = {
     checked: {}, // this.props.choices ? this.props.choices[0] : {},
   };
 
-  onChecked = (checked) => {
-    this.setState({ checked });
-  }
+  static choices = [
+    {
+      icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4', // 自定义icon链接
+      label: '选项一', // 文案
+      value: "string | number", // 选择的实际值, 必须唯一
+      description: '1年驾龄', // 描述
+    }, {
+        icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',  // 自定义icon链接
+        label: '选项二', // 文案
+        value: "string | number", // 选择的实际值, 必须唯一
+        description: '2~10驾龄', // 描述
+    }, {
+        icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
+        label: '选项三', // 文案
+        value: "string | number", // 选择的实际值, 必须唯一
+        description: '大于10年驾龄', // 描述
+    }
+  ];
+
+  // onChecked = (checked) => {
+  //   this.setState({ checked });
+  // }
   // onChecked = key => (this.state.checked = key);
 
-  onConfirm = () => {
+  onConfirm = (checked) => {
     const {
       confirmType, confirmFields,
       onMessage,
     } = this.props;
 
-    if (Object.keys(this.state.checked).length === 0) return false;
+    if (Object.keys(checked).length === 0) return false;
 
     const data = confirmFields.reduce((a, b) => Object.assign(a, { [b]: this.props[b] }), {});
-    onMessage(confirmType, {
-      ...data,
-      // value: this.state.checked.key,
-      selection: this.state.checked.title, // @TODO Bad Backend
-      label: this.state.checked.title,
-    });
+    console.log('onMessage: ', checked.description);
+    // onMessage(confirmType, {
+    //   ...data,
+    //   // value: this.state.checked.key,
+    //   selection: checked.title, // @TODO Bad Backend
+    //   label: checked.title,
+    // });
   };
 
   render() {
     const {
-      id, step, avatar, title, choices,
+      id, step, avatar, content,
       confirmLabel, ...rest
     } = this.props;
+
+    const { title = "单选卡片标题" , choices = Radio.choices } = content;
+
     const group = `${id}:${step}.${Math.random()}`;
-    const disabled = Object.keys(this.state.checked).length === 0;
+    // const disabled = Object.keys(this.state.checked).length === 0;
 
     return (
       <Card {...rest} key={id}>
@@ -261,14 +286,14 @@ export default class Radio extends PureComponent {
                 key={index.toString()}
                 group={group}
                 id={`${e.key}..${Math.random()}`}
-                title={e.title}
+                title={e.label}
                 description={e.description}
                 icon={e.icon}
-                onChecked={() => this.onChecked(e, index)}
+                onChecked={() => this.onConfirm(e)}
               />
             ))}
           </ChoicesWrapper>
-          <Button onClick={this.onConfirm} disabled={disabled}>{confirmLabel}</Button>
+          {/* <Button onClick={this.onConfirm} disabled={disabled}>{confirmLabel}</Button> */}
         </Wrapper>
       </Card>
     );

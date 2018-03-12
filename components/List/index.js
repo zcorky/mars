@@ -16,9 +16,11 @@ import { Absolute, View, Text, List, ListItem, Avatar as rAvatar } from 'elfen';
 
 // import { sendMessage } from 'services/message';
 
-// import Icon from '../../Icon';
+import Icon from '../../src/components/Icon';
 import Action from '../Action';
 // import { Absolute } from 'elfen/lib/layout/Absolute';
+
+const NULL = () => null;
 
 const Wrapper = styled(View)`
   display: flex;
@@ -185,7 +187,7 @@ export default class RList extends PureComponent {
   };
 
   render() {
-    const { avatar, title, data, commands, onText, onCommand, onSelect } = this.props;
+    const { avatar, title, data, commands, onText = NULL, onCommand = NULL, onSelect = NULL } = this.props;
     const disableTitle = !title;
 
     return (
@@ -200,16 +202,16 @@ export default class RList extends PureComponent {
               <Question key={key} title={t} onClick={() => onText(t)} />
             ))}
           </Questions>
-          {commands.length > 0 ? (
-            <ActionWrapper>
-              {commands.map(e => (
-                <Action
-                  onClick={() => onCommand(e, 'http://12292-zis-microservices-za-im-image.test.za.net/oss/file/1f10bd5b-ceeb-49d8-a49f-117155961bdc')}
-                  {...e}
-                />
-              ))}
-            </ActionWrapper>
-          ) : null}
+            {commands.length > 0 ? (
+              <ActionWrapper>
+                {commands.map(e => (
+                  <Action
+                    onClick={() => onCommand(e, 'http://12292-zis-microservices-za-im-image.test.za.net/oss/file/1f10bd5b-ceeb-49d8-a49f-117155961bdc')}
+                    {...e}
+                  />
+                ))}
+              </ActionWrapper>
+            ) : null}
         </QuestionCardWrapper>
       </Wrapper>
     );

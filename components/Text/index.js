@@ -13,6 +13,8 @@ import { View, Text as rText, Avatar as rAvatar } from 'elfen';
 import Action from '../Action';
 import { filterUrl } from './utils';
 
+const NULL = () => null;
+
 const Avatar = styled(rAvatar)`
   flexShrink: 0;
   margin-left: ${props => (props.client ? '1rem' : 'unset')};
@@ -97,18 +99,19 @@ const ButtonWrapper = styled.button`
 `;
 
 export default class RText extends PureComponent {
-  static label = '文本消息';
-  static WAITING_TIME = 1000;
-  static LOADING_TIME = 1000 * 5;
+  // static label = '文本消息';
+  // static WAITING_TIME = 1000;
+  // static LOADING_TIME = 1000 * 5;
 
   static propTypes = {
-    text: PropTypes.string,
+    // text: PropTypes.string,
     avatar: PropTypes.string,
     // @other
-    activeRichText: PropTypes.bool,
+    // activeRichText: PropTypes.bool,
     ack: PropTypes.bool,
     activeAck: PropTypes.bool,
-    commands: PropTypes.array,
+    // commands: PropTypes.array,
+    content: PropTypes.object,
     onSelect: PropTypes.func,
     onCommand: PropTypes.func,
   };
@@ -116,7 +119,8 @@ export default class RText extends PureComponent {
   static defaultProps = {
     activeRichText: false,
     activeAck: false,
-    commands: [],
+    content: {},
+    // commands: [],
   };
 
   state = {
@@ -125,64 +129,67 @@ export default class RText extends PureComponent {
   }
 
   componentDidMount() {
-    this.waitToCreateTimer(RText.WAITING_TIME);
+    // this.waitToCreateTimer(RText.WAITING_TIME);
   }
+/*
+  // onWarnClick = () => {
+  //   this.resendMessage();
+  //   this.waitToCreateTimer(RText.WAITING_TIME);
+  // };
 
-  onWarnClick = () => {
-    this.resendMessage();
-    this.waitToCreateTimer(RText.WAITING_TIME);
-  };
+  // waitToCreateTimer = (time) => {
+  //   if (this.props.activeAck) {
+  //     setTimeout(() => {
+  //       if (!this.props.ack) {
+  //         this.setState({
+  //           waitSuccess: false,
+  //         });
+  //         this.createTimer(RText.LOADING_TIME);
+  //       }
+  //     }, time);
+  //   }
+  // }
 
-  waitToCreateTimer = (time) => {
-    if (this.props.activeAck) {
-      setTimeout(() => {
-        if (!this.props.ack) {
-          this.setState({
-            waitSuccess: false,
-          });
-          this.createTimer(RText.LOADING_TIME);
-        }
-      }, time);
-    }
-  }
+  // createTimer = (time) => {
+  //   if (this.props.activeAck) {
+  //     setTimeout(() => {
+  //       if (!this.props.ack) {
+  //         this.setState({
+  //           ackSuccess: false,
+  //         });
+  //       } else {
+  //         this.setState({
+  //           waitSuccess: true,
+  //         });
+  //       }
+  //     }, time);
+  //   }
+  // }
 
-  createTimer = (time) => {
-    if (this.props.activeAck) {
-      setTimeout(() => {
-        if (!this.props.ack) {
-          this.setState({
-            ackSuccess: false,
-          });
-        } else {
-          this.setState({
-            waitSuccess: true,
-          });
-        }
-      }, time);
-    }
-  }
-
-  resendMessage = () => {
-    const { type, ...others } = this.props;
-    const isResend = true;
-    const messages = { ...others, isResend };
-    this.activeAck = false;
-    this.setState({
-      ackSuccess: true,
-      waitSuccess: true,
-    });
-    this.props.onMessage(type, messages);
-  }
+  // resendMessage = () => {
+  //   const { type, ...others } = this.props;
+  //   const isResend = true;
+  //   const messages = { ...others, isResend };
+  //   this.activeAck = false;
+  //   this.setState({
+  //     ackSuccess: true,
+  //     waitSuccess: true,
+  //   });
+  //   this.props.onMessage(type, messages);
+  // }
 
   // turnManual = () => {
   //   this.props.dispatch({ type: 'app/robot->man' });
   // }
-
+*/
   render() {
     const {
-      ack, activeAck, text = '123', avatar, onSelect, commands = [], onCommand, ...others
+      ack, activeAck, avatar, content, onSelect = NULL, onCommand = NULL, ...others
     } = this.props;
+    const { text = '这是文本', commands = [] } = content; 
+
     const { client } = others;
+
     const ackSuccess = this.state.ackSuccess;
     const waitSuccess = this.state.waitSuccess;
 

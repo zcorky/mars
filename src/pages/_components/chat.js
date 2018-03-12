@@ -53,11 +53,13 @@ const PageFooter = styled(rPageFooter)`
 `;
 
 export default class Chat extends PureComponent {
+  
  
   render() {
     // console.log(this.props.data);
     // console.log(getComponent('TEXT'));
     const { data } = this.props;
+    // console.log(data);
     return (
       <Wrapper>
         <Simulator>
@@ -67,11 +69,14 @@ export default class Chat extends PureComponent {
               {
                 data.map((message, index) => {
                   const Component = getComponent(message.type);
+                  const content = message.content;
+                  // console.log('content: ', content);
                   return (
                     <Component
                       key={index}
                       avator="https://imadmin2.zhongan.io/image/file/83176b53-ab36-4dd4-a132-c03ec11d0aa3" 
-                      choices={message.content.choices}
+                      content = {content}
+                      // choices={message.content.choices}
                     />
                   );
                 })

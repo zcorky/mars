@@ -4,12 +4,12 @@ function saveTextMessage(dispatch, text) {
       payload: {
         type: 'TEXT', // 卡片类型
         content: {
-            text: "string", // 文本信息 (必须)
+            text: "这是文本消息这是文本消息这是文本消息", // 文本信息 (必须)
             commands: [ // 命令 (Optional 可选)
                 {
                     type: "string", // 1 链接(link), 2 文本(text)
                     icon: "string", // 1 更多(more), 2 人工(man), 3 语音(voice), 4 拍照(camera) 等
-                    label: "string", // 文案
+                    label: "more", // 文案
                     value: "string | number", // 值
                 }
             ]
@@ -24,18 +24,23 @@ function saveRadioMessage(dispatch) {
         payload: {
             type: 'RADIO',
             content: {
-                title: "string", // 提示文案
+                title: "单选卡片标题", // 提示文案
                 choices: [
                     {
-                        icon: "URL", // 自定义icon链接
-                        label: "string", // 文案
+                        icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4', // 自定义icon链接
+                        label: '选项一', // 文案
                         value: "string | number", // 选择的实际值, 必须唯一
-                        description: "string", // 描述
-                    },  {
-                        icon: "URL", // 自定义icon链接
-                        label: "string", // 文案
+                        description: '1年驾龄', // 描述
+                    }, {
+                        icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',  // 自定义icon链接
+                        label: '选项二', // 文案
                         value: "string | number", // 选择的实际值, 必须唯一
-                        description: "string", // 描述
+                        description: '2~10驾龄', // 描述
+                    }, {
+                        icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
+                        label: '选项三', // 文案
+                        value: "string | number", // 选择的实际值, 必须唯一
+                        description: '大于10年驾龄', // 描述
                     }
                 ]
             }
@@ -49,13 +54,23 @@ function saveCheckboxMessage(dispatch) {
         payload: {
             type: 'CHECKBOX',
             content: {
-                title: 'string', // 提示文案
+                title: '多选卡片标题', // 提示文案
                 choices: [
                     {
-                        icon: 'URL', // 自定义icon链接
-                        label: 'string', // 文案
-                        value: 'string | number', // 选择的实际值, 唯一
-                        description: 'string', // 描述
+                        icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4', // 自定义icon链接
+                        label: '选项一', // 文案
+                        value: "string | number", // 选择的实际值, 必须唯一
+                        description: '1年驾龄', // 描述
+                    }, {
+                        icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',  // 自定义icon链接
+                        label: '选项二', // 文案
+                        value: "string | number", // 选择的实际值, 必须唯一
+                        description: '2~10驾龄', // 描述
+                    }, {
+                        icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
+                        label: '选项三', // 文案
+                        value: "string | number", // 选择的实际值, 必须唯一
+                        description: '大于10年驾龄', // 描述
                     }
                 ]
             }
@@ -120,7 +135,7 @@ function saveTextImageMessage(dispatch) {
 }
 
 export default function saveMessages(type, dispatch) {
-    console.log(type);
+    console.log('card-type: ', type);
     const saveMessageType = {
         TEXT: saveTextMessage,
         RADIO: saveRadioMessage,
