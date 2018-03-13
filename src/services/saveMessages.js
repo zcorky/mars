@@ -79,27 +79,52 @@ function saveCheckboxMessage(dispatch) {
 }
 
 function saveListMessage(dispatch) {
+    const listType = 'TEXTIMAGE';
     return dispatch({
         type: 'message/save',
         payload: {
             type: 'LIST',
             content: {
-                title: 'string', // 提示文案
+                title: '产品标题', // 提示文案
                 data: [
                     {
-                        type: 'string', // 类型: 1 纯文本(text) 2 富文本(richtext) (产品), 3 富文本(richtext) (其他...)
-
-                        label: 'string', // 文案 (文本)
+                        type: listType, // 类型: 1 纯文本(text) 2 富文本(richtext) (产品), 3 富文本(richtext) (其他...)
+              
+                        label: '如何通过众安保险投保?', // 文案 (文本)
                         value: 'string | number', // 值 (文本)
-
-                        title: 'string', // 标题 (富文本: 产品标题)
-                        banner: 'string', // 图片链接 (富文本: 产品图)
-                        tags: [], // 标签 (富文本: 产品)
-                        price: 'number', // 价格 (富文本: 产品)
-                        count: 'number', // 销售数量 (富文本: 产品)
+              
+                        title: '车险', // 标题 (富文本: 产品标题)
+                        banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png', // 图片链接 (富文本: 产品图)
+                        tags: ['tag1', 'tag2'], // 标签 (富文本: 产品)
+                        price: 2333, // 价格 (富文本: 产品)
+                        count: 666, // 销售数量 (富文本: 产品)
+                        url: 'string', // 产品链接 (富文本: 产品)
+                    },  {
+                        type: listType, // 类型: 1 纯文本(text) 2 富文本(richtext) (产品), 3 富文本(richtext) (其他...)
+              
+                        label: '理赔流程是什么样的？怎么操作？怎么操作？怎么操作？', // 文案 (文本)
+                        value: 'string | number', // 值 (文本)
+              
+                        title: '车险', // 标题 (富文本: 产品标题)
+                        banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png', // 图片链接 (富文本: 产品图)
+                        tags: ['tag1', 'tag2'], // 标签 (富文本: 产品)
+                        price: 666, // 价格 (富文本: 产品)
+                        count: 2333, // 销售数量 (富文本: 产品)
+                        url: 'string', // 产品链接 (富文本: 产品)
+                    },  {
+                        type: listType, // 类型: 1 纯文本(text) 2 富文本(richtext) (产品), 3 富文本(richtext) (其他...)
+              
+                        label: '怎么查看已购保险的保单？', // 文案 (文本)
+                        value: 'string | number', // 值 (文本)
+              
+                        title: '车险', // 标题 (富文本: 产品标题)
+                        banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png', // 图片链接 (富文本: 产品图)
+                        tags: ['tag1', 'tag2tag22222222'], // 标签 (富文本: 产品)
+                        price: 345, // 价格 (富文本: 产品)
+                        count: 543, // 销售数量 (富文本: 产品)
                         url: 'string', // 产品链接 (富文本: 产品)
                     }
-                ],
+                  ],
                 commands: [ // 命令 (Optional 可选)
                     {
                         type: 'string', // 1 链接(link), 2 文本(text)
@@ -144,7 +169,7 @@ export default function saveMessages(type, dispatch) {
         TEXTIMAGE: saveTextImageMessage,
       };
     if (!saveMessageType[type]) {
-    return console.error(`sendMessage: unknown sendMessageType (${type}) in ${Object.keys(sendMessageType)}`); // eslint-disable-line
+    return console.error(`saveMessages: unknown saveMessageType (${type}) in ${Object.keys(saveMessageType)}`); // eslint-disable-line
     }
 
     return saveMessageType[type](dispatch);

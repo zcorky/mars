@@ -37,31 +37,21 @@ export default class Cards extends React.Component{
   render() {
     return (
       <Wrapper>
-        {[Text].map((Component, i) => (
-          <Card key={i} type="button" onClick={() => this.onClick('TEXT')}>
-            {Component && <Component />}
+          <Card key={'1'} type="button" onClick={() => this.onClick('TEXT')}>
+            <Text />
           </Card>
-        ))}
-        {[Radio].map((Component, i) => (
-          <Card key={i} type="button" onClick={() => this.onClick('RADIO')}>
-            {Component && <Component />}
+          <Card key={'2'} type="button" onClick={() => this.onClick('RADIO')}>
+            <Radio />
           </Card>
-        ))}
-        {[Checkbox].map((Component, i) => (
-          <Card key={i} type="button" onClick={() => this.onClick('CHECKBOX')}>
-            {Component && <Component />}
+          <Card key={'3'} type="button" onClick={() => this.onClick('CHECKBOX')}>
+            <Checkbox />
           </Card>
-        ))}
-        {[List].map((Component, i) => (
-          <Card key={i} type="button" onClick={() => this.onClick('LIST')}>
-            {Component && <Component />}
+          <Card key={'4'} type="button" onClick={() => this.onClick('LIST')}>
+            <List/>
           </Card>
-        ))}
-        {[TextImage].map((Component, i) => (
-          <Card key={i} type="button" onClick={() => this.onClick('LIST')}>
-            {Component && <Component />}
-          </Card>
-        ))}
+          {/* <Card key={'5'} type="button" onClick={() => this.onClick('LIST', 'TEXTIMAGE')}>
+            <List type="TEXTIMAGE"/>
+          </Card> */}
      </Wrapper>
     )
   }

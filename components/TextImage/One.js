@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import { ListItem } from 'elfen'; 
+import styles from './index.less';
 
-const Wrapper = styled.a`
+const Wrapper = styled.div`
   position: relative;
   display: block;
   width: 100%;
@@ -66,15 +68,35 @@ const Divide = styled.div`
 
 const Count = styled.span``;
 
-export default ({ banner, title, tags = [], price, count, url }) => (
-  <Wrapper href={url}>
-    <Title>{title}</Title>
-    <Banner role="presentation" src={banner} />
-    <Tags>{tags}</Tags>
-    <Sells>
-      <Price>¥{price}</Price>起
-      <Divide />
-      <Count>{count}</Count>月销1000份
-    </Sells>
-  </Wrapper>
-);
+export default class TextImageItem extends PureComponent {
+  render() {
+    const { banner, title, tags = [], price, count, url } = this.props;
+    return (
+      <ListItem className={styles.product}>
+        <Wrapper href={url}>
+          <Title>{title}</Title>
+          <Banner role="presentation" src={banner} />
+          <Tags>{tags}</Tags>
+          <Sells>
+            <Price>¥{price}</Price>起
+            <Divide />
+            <Count>{`月销 ${count} 份`}</Count>
+          </Sells>
+        </Wrapper>
+      </ListItem>
+    )
+  }
+}
+
+// export default ({ banner, title, tags = [], price, count, url }) => (
+//   <Wrapper href={url}>
+//     <Title>{title}</Title>
+//     <Banner role="presentation" src={banner} />
+//     <Tags>{tags}</Tags>
+//     <Sells>
+//       <Price>¥{price}</Price>起
+//       <Divide />
+//       <Count>{count}</Count>月销1000份
+//     </Sells>
+//   </Wrapper>
+// );

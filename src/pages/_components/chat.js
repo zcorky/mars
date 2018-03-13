@@ -53,8 +53,8 @@ const PageFooter = styled(rPageFooter)`
 `;
 
 export default class Chat extends PureComponent {
-  
  
+  
   render() {
     // console.log(this.props.data);
     // console.log(getComponent('TEXT'));
@@ -70,7 +70,7 @@ export default class Chat extends PureComponent {
                 data.map((message, index) => {
                   const Component = getComponent(message.type);
                   const content = message.content;
-                  // console.log('content: ', content);
+                  //  console.log('content: ', content);
                   return (
                     <Component
                       key={index}

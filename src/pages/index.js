@@ -20,7 +20,7 @@ const mapState = state => {
 const mapActions = dispatch => ({
   onIncrease: () => dispatch({ type: 'app/+' }),
   onDecrease: () => dispatch({ type: 'app/-' }),
-  onSave: (type) => saveMessages(type, dispatch),
+  onSave: (type, listType) => saveMessages(type, dispatch, listType),
 });
 
 const Wrapper = styled.div`

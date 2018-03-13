@@ -1,9 +1,10 @@
-/**
- * @Author: zero
- * @Date:   2017-07-28T10:57:28+08:00
- * @Last modified by:   zero
- * @Last modified time: 2017-10-20T14:26:07+08:00
+/*
+ * @Author: zhaoxiaoqi
+ * @Date: 2018-03-13 10:04:31
+ * @Last Modified by: zhaoxiaoqi
+ * @Last Modified time: 2018-03-13 10:04:56
  */
+
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';

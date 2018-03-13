@@ -14,11 +14,12 @@ import styled from 'styled-components';
 
 import { Absolute, View, Text, List, ListItem, Avatar as rAvatar } from 'elfen';
 
-// import { sendMessage } from 'services/message';
-
 import Icon from '../../src/components/Icon';
 import Action from '../Action';
 // import { Absolute } from 'elfen/lib/layout/Absolute';
+
+import QuestionItem from '../Question/One';
+import getRenderItembyType from './utils';
 
 const NULL = () => null;
 
@@ -38,7 +39,7 @@ const Avatar = styled(rAvatar)`
   margin-right: ${props => (!props.client ? '1rem' : 'unset')};
 `;
 
-const QuestionCardWrapper = styled(View)`
+const CardWrapper = styled(View)`
   flex: 1;
   border-radius: 1.2rem;
 `;
@@ -75,7 +76,8 @@ const Divide = styled.div`
   }
 `;
 
-const Questions = styled(List)`
+
+const ListWrapper = styled(List)`
   // color: ${props => props.theme.palette.color1};
   font-size: ${props => props.theme.palette.fontSize1};
   color: ${props => props.theme[props.theme.current].question.contentColor};
@@ -88,112 +90,103 @@ const Questions = styled(List)`
   border-radius: ${props => (props.disableTitle ? '1.2rem' : '0 0 1.2rem 1.2rem')};
 `;
 
-const QuestionWrapper = styled(ListItem)`
-  position: relative;
-  margin: 0 1.4rem;
-  // border-bottom: 1px solid #ECECEC;
-  // height: 4rem;
-  line-height: 4.4rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-`;
-
-const QuestionTextWrapper = styled(View)`
-  position: relative;
-  width: calc(100% - 4rem);
-  // padding: .9rem 0;
-  height: 4rem;
-`;
-
-const QuestionTextAbsolute = styled(Absolute)`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`;
-
-const QuestionTextContent = styled(Text)`
-  width: 100%;
-  height: 100%;
-  line-height: 4rem;
-  
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
-const QuestionText = ({ children }) => (
-  <QuestionTextWrapper>
-    <QuestionTextAbsolute>
-      <QuestionTextContent>{children}</QuestionTextContent>
-    </QuestionTextAbsolute>
-  </QuestionTextWrapper>
-);
-
-const QuestionIcon = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 4rem;
-  height: 4rem;
-  color: #B6C0CC;
-`;
-
-const ActionWrapper = styled(View)`
-  margin-top: 1rem;
-`;
-
-const Question = ({ title, onClick }) => (
-  <QuestionWrapper onClick={onClick}>
-    <QuestionText>{title}</QuestionText>
-    <QuestionIcon name="more" size="1rem" style={{ marginRight: -12 }} />
-  </QuestionWrapper>
-);
-
 export default class RList extends PureComponent {
 
   static label = '问题卡片';
 
   static propTypes = {
     avatar: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    data: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      link: PropTypes.string.isRequired,
-    })).isRequired,
-    commands: PropTypes.array.isRequired,
+    // title: PropTypes.string.isRequired,
+    // data: PropTypes.arrayOf(PropTypes.shape({
+    //   title: PropTypes.string.isRequired,
+    //   link: PropTypes.string.isRequired,
+    // })).isRequired,
+    // commands: PropTypes.array.isRequired,
     onText: PropTypes.func.isRequired,
     onCommand: PropTypes.func.isRequired,
     onSelect: PropTypes.func.isRequired,
   };
 
-  static defaultProps = {
+  static content = {
     title: '常见问题',
-    data: [{
-      key: 'a',
-      title: '如何通过众安保险投保',
-      link: '#aaaaa',
-    }, {
-      key: 'b',
-      title: '理赔流程是什么样的？怎么操作？怎么操作？怎么操作？',
-      link: '#aaaaa',
-    }, {
-      key: 'c',
-      title: '怎么查看已购保险的保单？',
-      link: '#aaaaa',
-    }],
+    data: [
+      {
+          type: 'TEXT', // 类型: 1 纯文本(text) 2 富文本(richtext) (产品), 3 富文本(richtext) (其他...)
+
+          label: '如何通过众安保险投保?', // 文案 (文本)
+          value: 'string | number', // 值 (文本)
+
+          title: '车险', // 标题 (富文本: 产品标题)
+          banner: 'string', // 图片链接 (富文本: 产品图)
+          tags: ['tag1', 'tag2'], // 标签 (富文本: 产品)
+          price: 2333, // 价格 (富文本: 产品)
+          count: 666, // 销售数量 (富文本: 产品)
+          url: 'string', // 产品链接 (富文本: 产品)
+      },  {
+          type: 'TEXT', // 类型: 1 纯文本(text) 2 富文本(richtext) (产品), 3 富文本(richtext) (其他...)
+
+          label: '理赔流程是什么样的？怎么操作？怎么操作？怎么操作？', // 文案 (文本)
+          value: 'string | number', // 值 (文本)
+
+          title: '车险', // 标题 (富文本: 产品标题)
+          banner: 'string', // 图片链接 (富文本: 产品图)
+          tags: ['tag1', 'tag2'], // 标签 (富文本: 产品)
+          price: 666, // 价格 (富文本: 产品)
+          count: 2333, // 销售数量 (富文本: 产品)
+          url: 'string', // 产品链接 (富文本: 产品)
+      },  {
+          type: 'TEXT', // 类型: 1 纯文本(text) 2 富文本(richtext) (产品), 3 富文本(richtext) (其他...)
+
+          label: '怎么查看已购保险的保单？', // 文案 (文本)
+          value: 'string | number', // 值 (文本)
+
+          title: '车险', // 标题 (富文本: 产品标题)
+          banner: 'string', // 图片链接 (富文本: 产品图)
+          tags: ['tag1', 'tag2tag22222222'], // 标签 (富文本: 产品)
+          price: 345, // 价格 (富文本: 产品)
+          count: 543, // 销售数量 (富文本: 产品)
+          url: 'string', // 产品链接 (富文本: 产品)
+      }
+    ],
     commands: [],
   };
 
   render() {
-    const { avatar, title, data, commands, onText = NULL, onCommand = NULL, onSelect = NULL } = this.props;
+    const { avatar, content = {}, onText = NULL, onCommand = NULL, onSelect = NULL } = this.props;
+
+    const { title = '这是标题', data = RList.content.data, commands = [] } = content;
     const disableTitle = !title;
 
     return (
       <Wrapper onClick={onSelect}>
         {/* <Avatar src={avatar} /> */}
-        <QuestionCardWrapper>
+        <CardWrapper>
+          {disableTitle ? null : <Title>{ title }</Title>}
+          {disableTitle ? null : <Divide />}
+          <ListWrapper>
+            {data.length === 0 ? <View style={{ textAlign: 'center', padding: '2rem' }}>尚未发现常见问题</View> : null}
+            {
+              data.map((item, index) => {
+                const ItemComponent = getRenderItembyType(item.type);
+                const { label, value } = item;                               // TEXT
+                const { title, banner, tags, price, count, url } = item;     // TEXTIMAGE
+          
+                return <ItemComponent 
+                          key={index} 
+                          label={label} 
+                          value={value}
+                          title={title}
+                          banner={banner}
+                          tags={tags}
+                          price={price}
+                          count={count}
+                          url={url}
+                          onClick={() => NULL} />
+              }) 
+            }
+          </ListWrapper>
+        </CardWrapper>
+        {/* <QuestionCardWrapper>
           {disableTitle ? null : <Title>{ title }</Title>}
           {disableTitle ? null : <Divide />}
           <Questions disableTitle={disableTitle}>
@@ -212,7 +205,7 @@ export default class RList extends PureComponent {
                 ))}
               </ActionWrapper>
             ) : null}
-        </QuestionCardWrapper>
+        </QuestionCardWrapper> */}
       </Wrapper>
     );
   }

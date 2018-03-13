@@ -6,7 +6,7 @@ import { View, List as rList, ListItem, Avatar as rAvatar } from 'elfen';
 
 // import Action from 'components/Action';
 
-import One from './One';
+import TextImageItem from './One';
 
 import styles from './index.less';
 
@@ -107,9 +107,9 @@ export default class Product extends PureComponent {
         <Content>
           <List className={styles.products}>
             {products.map((e, i) => (
-              <ListItem key={i} className={styles.product}>
-                <One {...e} />
-              </ListItem>
+              // <ListItem key={i} className={styles.product}>
+                <TextImageItem key={i} {...e} />
+              // </ListItem>
             ))}
           </List>
           <CommandWrapper>
