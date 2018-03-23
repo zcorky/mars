@@ -7,7 +7,7 @@ import Page, { PageHeader as rPageHeader, PageFooter as rPageFooter, PageBody as
 
 import Input from '../../components/Input';
 
-import { getCard } from '../../../components/index';
+import getComponent from '../../../components/utils'
 
 const Wrapper = styled.div`
   position: absolute;
@@ -48,6 +48,14 @@ const PageFooter = styled(rPageFooter)`
 
 const Item = styled.div`
   margin-bottom: 10px;
+  display: flex;
+`;
+
+const Avatar = styled.img`
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 50%;
 `;
 
 class Chat extends PureComponent {
@@ -61,12 +69,13 @@ class Chat extends PureComponent {
             <PageHeader>智能客服</PageHeader>
             <PageBody>
               {messages.map(({ id, type, content }) => {
-                const Component = getCard(type);
+                const Component = getComponent(type);
                 
                 if (!Component) return null;
 
                 return (
                   <Item key={id} >
+                    <Avatar src="https://avatars1.githubusercontent.com/u/7463687?s=460&v=4" />
                     <Component {...content} />
                   </Item>
                 );

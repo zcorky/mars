@@ -15,6 +15,7 @@
     "elfen-component-beautiful-scrollbar": "^0.0.1",
     "elfen-component-page": "^0.0.3",
     "elfen-component-simulator": "^0.0.2",
+    "nanoid": "^1.0.2",
     "styled-components": "^3.2.1",
     "umi": "^1.0.4",
     "umi-plugin-dva": "^0.2.0",

@@ -1,6 +1,16 @@
+import React from 'react';
 import styled from 'styled-components';
 
+import { connect } from 'dva';
+
+import Text from '../../../components/Text';
 import Radio from '../../../components/Radio';
+import Checkbox from '../../../components/Checkbox';
+import List from '../../../components/List';
+import TextImage from '../../../components/TextImage';
+
+// import * as CardTemplates from '../../../components';
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,14 +29,26 @@ const Card = styled.div`
   cursor: auto;
   margin-bottom: 12px;
   padding: 10px;
+  // background-color: #ddd;
 `;
 
-export default () => (
+const Root = (props) => (
   <Wrapper>
-    {[Radio, Radio, Radio, Radio].map((Component, i) => (
-      <Card key={i}>
+    {[Text, Radio, Checkbox, TextImage, List].map((Component, i) => (
+      <Card key={i} onClick={() => props.onAdd(Component.type)}>
         {Component && <Component />}
       </Card>
     ))}
   </Wrapper>
 );
+
+const mapState = (state) => ({});
+
+const mapActions = (dispatch) => ({
+  onAdd(type) {
+    console.log(type);
+    dispatch({ type: 'message/add', payload: { type } });
+  },
+});
+
+export default connect(mapState, mapActions)(Root);

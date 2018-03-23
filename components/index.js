@@ -1,14 +1,14 @@
+import Text from './Text';
 import Radio from './Radio';
+import Checkbox from './Checkbox';
+import TextImage from './TextImage';
 
-const CARDS = {
-  RADIO: Radio
+import List from './List';
+
+export {
+  Text,
+  Radio,
+  Checkbox,
+  TextImage,
+  List,
 };
-
-export function getCard(type, content) {
-  if (!(type in CARDS)) {
-    console.error(`[Card] invalid card type`);
-    return null;
-  }
-  
-  return CARDS[type];
-}
