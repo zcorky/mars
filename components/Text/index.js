@@ -1,8 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-03-23 14:51:10
+ * @Last Modified by: zhaoxiaoqi
+ * @Last Modified time: 2018-03-29 10:43:49
  */
 
 import React, { PureComponent } from 'react';
@@ -11,7 +11,7 @@ import styled from 'styled-components';
 
 import { View, Text as rText } from 'elfen';
 
-import Action from '../Action';
+import Action from '../_internal/Action';
 import { filterUrl } from './utils';
 
 const NOOP = () => null;

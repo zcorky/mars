@@ -1,8 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 11:34:18
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-03-23 13:55:46
+ * @Last Modified by: zhaoxiaoqi
+ * @Last Modified time: 2018-03-29 10:43:10
  */
 
 import React, { PureComponent } from 'react';
@@ -11,7 +11,6 @@ import styled from 'styled-components';
 
 import { Absolute, View, Text, List, ListItem, Avatar as rAvatar } from 'elfen';
 import Icon from '../../src/components/Icon';
-import Action from '../Action';
 
 const NOOP = () => null;
 
