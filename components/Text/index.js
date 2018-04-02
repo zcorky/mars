@@ -2,11 +2,11 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-03-29 10:43:49
+ * @Last Modified time: 2018-04-02 15:23:40
  */
 
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import { string, array, bool, func } from 'prop-types';
 import styled from 'styled-components';
 
 import { View, Text as rText } from 'elfen';
@@ -91,21 +91,22 @@ const ButtonWrapper = styled.button`
 
 export default class RText extends PureComponent {
   static type = 'TEXT';
-  static label = '文本消息';
+  static label = '文本卡片';
 
   static propTypes = {
-    text: PropTypes.string.isRequired,
-    commands: PropTypes.array,
+    text: string.isRequired,
+    commands: array,
 
-    ack: PropTypes.bool,
-    activeAck: PropTypes.bool,
-    onSelect: PropTypes.func,
-    onCommand: PropTypes.func,
+    ack: bool,
+    activeAck: bool,
+    onSelect: func,
+    onCommand: func,
   };
 
   static defaultProps = {
-    text: '这是文本',
+    text: '这是文本这是文本这是文本这是文本这是文本这是文本这是文本这是文本',
     commands: [],
+    
     activeRichText: false,
     activeAck: false,
   };

@@ -4,10 +4,14 @@ import styled from 'styled-components';
 import { connect } from 'dva';
 
 import Text from '../../../components/Text';
+import TextImage from '../../../components/TextImage';
 import Radio from '../../../components/Radio';
 import Checkbox from '../../../components/Checkbox';
-import List from '../../../components/List';
-import TextImage from '../../../components/TextImage';
+import Image from '../../../components/Image';
+import TextList from '../../../components/TextList';
+import TextImageList from '../../../components/TextImageList';
+
+// import List from '../../../components/List';
 
 // import * as CardTemplates from '../../../components';
 
@@ -29,12 +33,12 @@ const Card = styled.div`
   cursor: auto;
   margin-bottom: 12px;
   padding: 10px;
-  // background-color: #ddd;
+  background-color: #ddd;
 `;
 
 const Root = (props) => (
   <Wrapper>
-    {[Text, Radio, Checkbox, TextImage, List].map((Component, i) => (
+    {[Text, TextImage, Radio, Checkbox, Image, TextList, TextImageList].map((Component, i) => (
       <Card key={i} onClick={() => props.onAdd(Component.type)}>
         {Component && <Component />}
       </Card>

@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 11:34:18
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-03-29 10:43:10
+ * @Last Modified time: 2018-04-02 17:12:23
  */
 
 import React, { PureComponent } from 'react';
@@ -73,10 +73,10 @@ const QuestionWrapper = styled(ListItem)`
 
 export default class QuestionItem extends PureComponent {
   render() {
-    const { label, onClick = NOOP } = this.props;
+    const { text, value, onClick = NOOP } = this.props;
     return (
       <QuestionWrapper onClick={onClick}>
-        <QuestionText>{label}</QuestionText>
+        <QuestionText>{text}</QuestionText>
         <QuestionIcon name="more" size="1rem" style={{ marginRight: -12 }} />
       </QuestionWrapper>
     )

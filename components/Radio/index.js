@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { string, number, array, arrayOf, func, shape, oneOfType} from 'prop-types';
+import styles from '../index.less';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -35,7 +36,7 @@ const ChoicesWrapper = styled.div`
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  width: 200px;
+  // width: 200px;
 `;
 
 const Button = styled.a`
@@ -142,9 +143,9 @@ const ChoiceRadio = ({ checked, name, id, onChecked }) => (
   </ChoiceRadioWrapper>
 );
 
-const Choice = ({ id, group = 'choice', title, description, icon, checked, onChecked }) => (
-  <ChoiceWrapper checked={checked}>
-    <ChoiceTitle>{title}</ChoiceTitle>
+const Choice = ({ className, id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
+  <ChoiceWrapper className={className} checked={checked}>
+    <ChoiceTitle>{label}</ChoiceTitle>
     <ChoiceDescription>{description}</ChoiceDescription>
     <ChoiceLogo src={icon} />
     <ChoiceRadio name={group} id={id} checked={checked} onChecked={onChecked} />
@@ -156,21 +157,21 @@ export default class Radio extends PureComponent {
   static label = '单选';
 
   static propTypes = {
-    id: PropTypes.string,
-    step: PropTypes.number,
-    title: PropTypes.string,
-    choices: PropTypes.arrayOf(
-      PropTypes.shape({
-        icon: PropTypes.string,
-        title: PropTypes.string,
-        description: PropTypes.string,
-        key: PropTypes.string,
+    id: string,
+    step: number,
+    title: string,
+    choices: arrayOf(
+      shape({
+        icon: string,
+        label: string,
+        value: oneOfType([string, number]),
+        description: string,
       }),
     ),
-    confirmLabel: PropTypes.string,
-    confirmType: PropTypes.string,
-    conformFields: PropTypes.array,
-    onMessage: PropTypes.func,
+    confirmLabel: string,
+    confirmType: string,
+    conformFields: array,
+    onMessage: func,
   }
 
   static defaultProps = {
@@ -225,15 +226,17 @@ export default class Radio extends PureComponent {
     return (
       <Wrapper>
         <Title>{title}</Title>
-        <ChoicesWrapper>
+        <ChoicesWrapper className={styles.choices}>
           {choices.map((e, index) => (
-            <Choice
+            <Choice 
+              className={styles.choice}
               key={index.toString()}
               group={group}
               id={`${e.key}..${Math.random()}`}
-              title={e.label}
-              description={e.description}
               icon={e.icon}
+              label={e.label}
+              value={e.value}
+              description={e.description}
               onChecked={() => this.onConfirm(e)}
             />
           ))}

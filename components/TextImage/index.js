@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
-import { array, arrayOf, string, number, func, shape } from 'prop-types';
+import { array, arrayOf, string, number, func, shape, oneOfType} from 'prop-types';
 import styled from 'styled-components';
 
 import { View, List as rList, ListItem, Avatar as rAvatar } from 'elfen';
 
-import TextImageItem from './One';
-
-import styles from './index.less';
+import { TextImageItem } from '../ListItem';
+import Action from '../_internal/Action';
+// import styles from './index.less';
 
 const Wrapper = styled(View)`
   width: 100%;
@@ -22,11 +22,19 @@ const Content = styled.div`
   width: 100%;
 `;
 
-const List = styled(rList)`
-  border-radius: 1.2rem;
-  padding: 1.2rem 1.4rem;
-  background-color: #fff;
-  box-shadow: 0 3px 5px 1px #E2E8EF;
+// const List = styled(rList)`
+//   border-radius: 1.2rem;
+//   padding: 1.2rem 1.4rem;
+//   background-color: #fff;
+//   box-shadow: 0 3px 5px 1px #E2E8EF;
+// `;
+
+const TextImageWrapper = styled.div`
+    width: 100%;
+    border-radius: 1.2rem;
+    padding: 1.2rem 1.4rem;
+    background-color: #fff;
+    box-shadow: 0 3px 5px 1px #E2E8EF;
 `;
 
 const CommandWrapper = styled.div`
@@ -41,23 +49,22 @@ const Avatar = styled(rAvatar)`
 `;
 
 export default class TextImage extends PureComponent {
-  static label = '产品卡片';
-  static type = 'TEXTIMAGE';
+  static type = 'TEXT_IMAGE';
+  static label = '图文卡片';
 
   static propTypes = {
-    products: arrayOf(shape({
-      banner: string,
-      title: string,
-      tags: array,
-      price: number,
-      sellCount: number,
-    })),
+    // banner: string.isRequired,
+    // title: string.isRequired,
+    // subTitle: string,
+    // keyDescription: string.isRequired,
+    // description: string,
+    // url: string,
     commands: arrayOf(
       shape({
+        type: string,
         icon: string,
         label: string,
-        type: string,
-        url: string,
+        value: oneOfType([string, number]),
       }),
     ),
     onSelect: func,
@@ -65,52 +72,42 @@ export default class TextImage extends PureComponent {
   };
 
   static defaultProps = {
+    // banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
+    // title: '尊享e生百万医疗保险',
+    // subTitle: '险种不够经验来凑',
+    // keyDescription: '200',
+    // decription: '10000',
+    // url: '',
     commands: [{
+      type: 'link',
       icon: 'more-suggestion',
       label: '查看更多方案',
+      value: '123',
     }],
-    products: [
-      {
-        banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
-        title: '尊享e生百万医疗保险',
-        tags: ['险种不够经验来凑', '老司机带带我'],
-        price: 200,
-        sellCount: 10000,
-      },
-      {
-        banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
-        title: '尊享e生百万医疗保险',
-        tags: ['险种不够经验来凑', '老司机带带我'],
-        price: 200,
-        sellCount: 10000,
-      },
-      {
-        banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
-        title: '尊享e生百万医疗保险',
-        tags: ['险种不够经验来凑', '老司机带带我'],
-        price: 200,
-        sellCount: 10000,
-      },
-    ],
   };
 
   render() {
-    const { client, avatar, onSelect, products, commands, onCommand } = this.props;
+    const { banner, title, subTitle, keyDescription, description, url, commands } = this.props;
+    const { client, avatar, onSelect, onCommand } = this.props;
 
     return (
       <Wrapper onClick={onSelect}>
-        <Content>
-          <List className={styles.products}>
-            {products.map((e, i) => (
-              <TextImageItem key={i} {...e} />
-            ))}
-          </List>
-          <CommandWrapper>
-            {/* {commands.map(e => (
-              <Action onClick={() => onCommand(e)} {...e} />
-            ))} */}
-          </CommandWrapper>
-        </Content>
+          <Content>
+            <TextImageWrapper>
+              <TextImageItem 
+              banner={banner}
+              title={title}
+              subTitle={subTitle} 
+              keyDescription={keyDescription}
+              description={description}
+              url={url} />
+            </TextImageWrapper>
+            <CommandWrapper>
+              {commands.map((e, i) => (
+                <Action key={i} onClick={() => onCommand(e)} {...e} />
+              ))}
+            </CommandWrapper>
+          </Content>
       </Wrapper>
     );
   }

@@ -59,8 +59,8 @@ Action.propTypes = {
   type: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  url: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default Action;

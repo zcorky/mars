@@ -9,7 +9,8 @@
 
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import { string, number, arrayOf, array, shape } from 'prop-types';
+import styles from '../index.less';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -18,7 +19,7 @@ const Wrapper = styled.div`
   background-color: #fff;
   border-radius: 1.2rem;
   box-shadow: 0 3px 5px 1px #E2E8EF;
-  width: calc(100% - 5rem);
+  // width: calc(100% - 5rem);
   // padding: 0 2.2rem 0 2.2rem;
   text-decoration: none;
 `;
@@ -150,9 +151,9 @@ const ChoiceCheckbox = ({ checked, name, id, onChecked }) => (
   </ChoiceCheckboxWrapper>
 );
 
-const Choice = ({ id, group = 'choice', title, description, icon, checked, onChecked }) => (
+const Choice = ({ id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
   <ChoiceWrapper checked={checked}>
-    <ChoiceTitle>{title}</ChoiceTitle>
+    <ChoiceTitle>{label}</ChoiceTitle>
     <ChoiceDescription>{description}</ChoiceDescription>
     <ChoiceLogo src={icon} />
     <ChoiceCheckbox name={group} id={id} checked={checked} onChecked={onChecked} />
@@ -164,21 +165,21 @@ export default class Checkbox extends PureComponent {
   static label = '多选';
 
   static propTypes = {
-    id: PropTypes.string,
-    step: PropTypes.number,
-    title: PropTypes.string,
-    choices: PropTypes.arrayOf(
-      PropTypes.shape({
-        icon: PropTypes.string,
-        title: PropTypes.string,
-        description: PropTypes.string,
-        key: PropTypes.string,
+    id: string,
+    step: number,
+    title: string,
+    choices: arrayOf(
+      shape({
+        icon: string,
+        title: string,
+        description: string,
+        key: string,
       }),
     ),
-    confirmLabel: PropTypes.string,
-    confirmType: PropTypes.string,
-    conformFields: PropTypes.array,
-    // onMessage: PropTypes.func.isRequired,
+    confirmLabel: string,
+    confirmType: string,
+    conformFields: array,
+    // onMessage: func,
   }
 
   static defaultProps = {
@@ -201,6 +202,11 @@ export default class Checkbox extends PureComponent {
           label: '选项三', // 文案
           value: "string | number", // 选择的实际值, 必须唯一
           description: '描述三', // 描述
+      }, {
+        icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
+        label: '选项四', // 文案
+        value: "string | number", // 选择的实际值, 必须唯一
+        description: '描述四', // 描述
       }
     ],
   };
@@ -246,16 +252,18 @@ export default class Checkbox extends PureComponent {
     return (
       <Wrapper>
         <Title>{title}</Title>
-        <ChoicesWrapper>
-          {choices.map((e, index) => (
+        <ChoicesWrapper className={styles.choices}>
+        {choices.map((e, index) => (
             <Choice
+              className={styles.choice}
               key={index.toString()}
               group={group}
               id={`${e.key}..${Math.random()}`}
-              title={e.label}
-              description={e.description}
               icon={e.icon}
-              onChecked={() => this.onChecked(e)}
+              label={e.label}
+              value={e.value}
+              description={e.description}
+              onChecked={() => this.onConfirm(e)}
             />
           ))}
         </ChoicesWrapper>

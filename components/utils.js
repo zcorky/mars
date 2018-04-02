@@ -1,11 +1,21 @@
-import { Text, Radio, Checkbox, TextImage, List } from './index';
+import { 
+    Text, 
+    TextImage, 
+    Radio, 
+    Checkbox,
+    Image,
+    TextList,
+    TextImageList,
+} from './index';
 
 const cards = {
-  TEXT: Text,
-  RADIO: Radio,
-  CHECKBOX: Checkbox,
-  TEXTIMAGE: TextImage,
-  LIST: List,
+    TEXT: Text,
+    TEXT_IMAGE: TextImage,
+    RADIO: Radio,
+    CHECKBOX: Checkbox,
+    IMAGE: Image,
+    TEXT_LIST: TextList,
+    TEXT_IMAGE_LIST: TextImageList,
 };
 
 export default function getComponent(type) {

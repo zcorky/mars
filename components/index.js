@@ -1,14 +1,19 @@
 import Text from './Text';
+import TextImage from './TextImage';
 import Radio from './Radio';
 import Checkbox from './Checkbox';
-import TextImage from './TextImage';
+import Image from './Image';
+import TextList from './TextList';
+import TextImageList from './TextImageList';
 
-import List from './List';
 
+// import List from './List';
 export {
   Text,
+  TextImage,
   Radio,
   Checkbox,
-  TextImage,
-  List,
+  Image,
+  TextList,
+  TextImageList,
 };
