@@ -4,8 +4,29 @@ export default {
   namespace: 'message',
 
   state: {
-    'xxxxasd': {
-      id: 'xxxxasd',
+    'text': {
+      id: 'text',
+      type: 'TEXT',
+      content: {
+        text: '请问有什么可以帮助你的吗？',
+      }
+    },
+    
+    'textimage': {
+      id: 'textimage',
+      type: 'TEXT_IMAGE',
+      content: {
+        banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
+        title: '尊享e生百万医疗保险',
+        subTitle: '险种不够经验来凑',
+        keyDescription: '￥200',
+        description: '月销 100 份',
+        url: '',
+      }
+    },
+
+    'radio': {
+      id: 'radio',
       type: 'RADIO',
       content: {
         choices: [
@@ -31,9 +52,9 @@ export default {
       },
     },
 
-    'xxxxase': {
-      id: 'xxxxase',
-      type: 'RADIO',
+    'checkbox': {
+      id: 'checkbox',
+      type: 'CHECKBOX',
       content: {
         choices: [
           {
@@ -56,7 +77,66 @@ export default {
           },
         ]
       },
+    }, 
+
+    'image': {
+      id: 'image',
+      type: 'IMAGE',
+      content: {
+        banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/v2-953608ff58261bdf314d03996a995a8d_r.jpg',
+      }
     },
+
+    'textlist': {
+      id: 'textlist',
+      type: 'TEXT_LIST',
+      content: {
+        title: '也许您想问？',
+        list: [
+          {
+            text: '什么是分期车险？',
+            value: '什么是分期车险？',
+          },  {
+            text: '如何使用分期支付？',
+            value: '如何使用分期支付？',
+          },  {
+            text: '我可不可以提前申请还款？怎么申请？后续怎么操作？',
+            value: '我可不可以提前申请还款？怎么申请？后续怎么操作？',
+          }
+        ]
+      }
+    },
+
+    'textimagelist': {
+      id: 'textimagelist',
+      type: 'TEXT_IMAGE_LIST',
+      content: {
+        list: [
+          {
+            banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
+            title: '尊享e生百万医疗保险',
+            subTitle: '险种不够经验来凑',
+            keyDescription: '￥200',
+            description: '月销 100 份',
+            url: '',
+          }, {
+            banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
+            title: '尊享e生百万医疗保险',
+            subTitle: '险种不够经验来凑',
+            keyDescription: '￥200',
+            description: '月销 100 份',
+            url: '',
+          }, {
+            banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
+            title: '尊享e生百万医疗保险',
+            subTitle: '险种不够经验来凑',
+            keyDescription: '￥200',
+            description: '月销 100 份',
+            url: '',
+          }
+        ]
+      }
+    }
   },
 
   reducers: {

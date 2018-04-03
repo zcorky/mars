@@ -76,7 +76,7 @@ export default class TextImage extends PureComponent {
     // title: '尊享e生百万医疗保险',
     // subTitle: '险种不够经验来凑',
     // keyDescription: '200',
-    // decription: '10000',
+    // description: '10000',
     // url: '',
     commands: [{
       type: 'link',

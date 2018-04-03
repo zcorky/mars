@@ -71,7 +71,7 @@ const ListWrapper = styled(List)`
 
   width: 100%;
   background-color: #fff;
-  border-radius: ${props => (!props.title ? '1.2rem' : '0 0 1.2rem 1.2rem')};
+  border-radius: ${props => (props.disableTitle ? '1.2rem' : '0 0 1.2rem 1.2rem')};
 `;
 
 export default class RList extends PureComponent {
@@ -91,6 +91,7 @@ export default class RList extends PureComponent {
   };
 
   static defaultProps = {
+    title: '',
     list: [
         {
             text: '文本一',
@@ -115,7 +116,7 @@ export default class RList extends PureComponent {
         <CardWrapper>
           {disableTitle ? null : <Title>{ title }</Title>}
           {disableTitle ? null : <Divide />}
-          <ListWrapper>
+          <ListWrapper disableTitle={disableTitle}>
             {list.length === 0 ? <View style={{ textAlign: 'center', padding: '2rem' }}>尚未发现常见问题</View> : null}
             {
                 list.map((e, i) => <QuestionItem key={i} text={e.text} value={e.value}/>)

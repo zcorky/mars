@@ -111,7 +111,7 @@ export default class TextImageItem extends PureComponent {
     banner: string.isRequired,
     title: string.isRequired,
     subTitle: string,
-    keyDescription: string.isRequired,
+    keyDescription: string,
     description: string,
     url: string,
   }
