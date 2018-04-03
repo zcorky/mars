@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { string, number, array, arrayOf, func, shape, oneOfType} from 'prop-types';
-import styles from '../index.less';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -31,12 +30,14 @@ const Title = styled.div`
 `;
 
 const ChoicesWrapper = styled.div`
-  padding: 1.2rem 2.2rem 1.0rem 2.2rem;
+  padding: 1.2rem 1.2rem 1.0rem;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
   // width: 200px;
+
+  margin-right: -1.5rem;  
 `;
 
 const Button = styled.a`
@@ -60,6 +61,17 @@ const ChoiceWrapper = styled.div`
   border-radius: 6px;
   margin-bottom: 1.2rem;
   // box-shadow: ${props => (props.checked ? '0 1px 4px 0 rgba(32,172,244,0.56)' : 'none')};
+
+  margin-right: 1.5rem;
+  @media only screen and (max-device-width : 320px) {
+      width: 100%;
+  }
+  @media only screen and (min-device-width : 321px) and (max-device-width : 500px) {
+      width: 45%;
+  }
+  @media only screen and (min-device-width : 501px) {
+      // flex: 1;     //open in project
+  }
 `;
 
 const ChoiceRadioWrapper = styled.div`
@@ -143,8 +155,8 @@ const ChoiceRadio = ({ checked, name, id, onChecked }) => (
   </ChoiceRadioWrapper>
 );
 
-const Choice = ({ className, id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
-  <ChoiceWrapper className={className} checked={checked}>
+const Choice = ({ id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
+  <ChoiceWrapper checked={checked}>
     <ChoiceTitle>{label}</ChoiceTitle>
     <ChoiceDescription>{description}</ChoiceDescription>
     <ChoiceLogo src={icon} />
@@ -226,10 +238,9 @@ export default class Radio extends PureComponent {
     return (
       <Wrapper>
         <Title>{title}</Title>
-        <ChoicesWrapper className={styles.choices}>
+        <ChoicesWrapper>
           {choices.map((e, index) => (
             <Choice 
-              className={styles.choice}
               key={index.toString()}
               group={group}
               id={`${e.key}..${Math.random()}`}

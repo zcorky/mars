@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 11:34:18
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-02 17:12:23
+ * @Last Modified time: 2018-04-03 14:38:48
  */
 
 import React, { PureComponent } from 'react';
@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Absolute, View, Text, List, ListItem, Avatar as rAvatar } from 'elfen';
-import Icon from '../../src/components/Icon';
+import Icon from '../_internal/Icon';
 
 const NOOP = () => null;
 
