@@ -151,8 +151,8 @@ const ChoiceCheckbox = ({ checked, name, id, onChecked }) => (
   </ChoiceCheckboxWrapper>
 );
 
-const Choice = ({ id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
-  <ChoiceWrapper checked={checked}>
+const Choice = ({ className, id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
+  <ChoiceWrapper className={className} checked={checked}>
     <ChoiceTitle>{label}</ChoiceTitle>
     <ChoiceDescription>{description}</ChoiceDescription>
     <ChoiceLogo src={icon} />
