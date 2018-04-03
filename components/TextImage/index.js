@@ -95,12 +95,12 @@ export default class TextImage extends PureComponent {
           <Content>
             <TextImageWrapper>
               <TextImageItem 
-              banner={banner}
-              title={title}
-              subTitle={subTitle} 
-              keyDescription={keyDescription}
-              description={description}
-              url={url} />
+                banner={banner}
+                title={title}
+                subTitle={subTitle} 
+                keyDescription={keyDescription}
+                description={description}
+                url={url} />
             </TextImageWrapper>
             <CommandWrapper>
               {commands.map((e, i) => (

@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-02 15:23:40
+ * @Last Modified time: 2018-04-03 11:12:55
  */
 
 import React, { PureComponent } from 'react';
@@ -122,7 +122,7 @@ export default class RText extends PureComponent {
 
   render() {
     const {
-      text, commands = [], 
+      text, commands, 
       ack, activeAck, onSelect = NOOP, onCommand = NOOP,
       ...others
     } = this.props;

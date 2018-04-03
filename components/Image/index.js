@@ -2,14 +2,15 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-02 16:25:03
+ * @Last Modified time: 2018-04-03 11:31:23
  */
 
 import React, { PureComponent } from 'react';
-import { string, bool, func } from 'prop-types';
+import { string, bool, func, array } from 'prop-types';
 // import classnames from 'classnames';
-
+import styled from 'styled-components';
 import { Flex, View, Avatar, Icon } from 'elfen';
+import Action from '../_internal/Action';
 
 // import { SingleImgView } from 'react-imageview';
 import 'react-imageview/dist/react-imageview.min.css';
@@ -20,6 +21,13 @@ import classes from './index.less';
 
 // const IMAGE = getImagePrefix();
 
+const NOOP = () => null;
+
+const CommandWrapper = styled(View)`
+  margin-top: 1rem;
+  flex: 1;
+`;
+
 export default class Image extends React.Component {
   static label = '图片卡片';
   static type = 'IMAGE';
@@ -27,6 +35,7 @@ export default class Image extends React.Component {
   static propTypes = {
     banner: string.isRequired,
     client: bool,
+    commands: array,
     onSelect: func,
     animation: bool,
   };
@@ -35,6 +44,7 @@ export default class Image extends React.Component {
     banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/v2-953608ff58261bdf314d03996a995a8d_r.jpg',
     avatar: 'http://12292-zis-microservices-za-im-image.test.za.net/oss/file/1f10bd5b-ceeb-49d8-a49f-117155961bdc',
     client: false,
+    commands: [],
     onSelect: () => {},
     animation: true,
   };
@@ -122,7 +132,7 @@ export default class Image extends React.Component {
 
   render() {
     const { error, progress } = this.state;
-    const { client, banner, animation, onSelect } = this.props;
+    const { client, banner, commands, animation, onSelect, onCommand = NOOP } = this.props;
     const flow = client ? 'row-reverse' : 'row';
     const avatarClass = client ? classes.avatarClient : classes.avatar;
 
@@ -141,6 +151,11 @@ export default class Image extends React.Component {
             onClick={this.handleClickImage}
             onLoad={this.props.onLoad}
           />
+          <CommandWrapper>
+            {commands.map(e => (
+              <Action onClick={() => onCommand(e)} {...e} />
+            ))}
+          </CommandWrapper>
           <div
             style={{
               flex: 1,

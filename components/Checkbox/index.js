@@ -182,10 +182,8 @@ export default class Checkbox extends PureComponent {
     // onMessage: func,
   }
 
-  static defaultProps = {
-    confirmType: 'dialog',
-    confirmLabel: '确定',
-    confirmFields: ['id', 'step', 'detailId'],
+  static defaultProps = { 
+    title: '多选卡片标题',
     choices: [
       {
         icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4', // 自定义icon链接
@@ -209,6 +207,9 @@ export default class Checkbox extends PureComponent {
         description: '描述四', // 描述
       }
     ],
+    confirmType: 'dialog',
+    confirmLabel: '确定',
+    confirmFields: ['id', 'step', 'detailId'],
   };
 
   state = {
@@ -242,7 +243,7 @@ export default class Checkbox extends PureComponent {
   render() {
     const {
       id, step, avatar, content, confirmLabel,
-      title = "多选卡片标题" , choices = Checkbox.choices,
+      title, choices = Checkbox.choices,
       ...rest
     } = this.props;
 
