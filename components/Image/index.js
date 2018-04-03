@@ -1,8 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
- * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-03 11:31:23
+ * @Last Modified by: zero
+ * @Last Modified time: 2018-04-03 14:11:11
  */
 
 import React, { PureComponent } from 'react';
@@ -17,7 +17,9 @@ import 'react-imageview/dist/react-imageview.min.css';
 
 // import { getImagePrefix } from 'utils';
 
-import classes from './index.less';
+// import classes from './index.less';
+
+const classes = {};
 
 // const IMAGE = getImagePrefix();
 

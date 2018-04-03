@@ -6,7 +6,9 @@ import { View, List as rList, ListItem as rListItem, Avatar as rAvatar } from 'e
 
 import { TextImageItem } from '../ListItem';
 import Action from '../_internal/Action';
-import styles from './index.less';
+// import styles from './index.less';
+
+const styles = {};
 
 const Wrapper = styled(View)`
   width: 100%;
