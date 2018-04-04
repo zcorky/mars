@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-03 11:12:55
+ * @Last Modified time: 2018-04-04 18:34:59
  */
 
 import React, { PureComponent } from 'react';
@@ -29,7 +29,7 @@ const Text = styled(rText)`
   user-select: text;
   font-size: ${props => props.theme.palette.fontSize1};
   color: ${props => (props.client ? '#fff' : '')};
-  font-weight: ${props => (props.client ? '200' : '')};
+  // font-weight: ${props => (props.client ? '200' : '')};
   border-radius: ${props => (props.client ? '1.2rem 0 1.2rem 1.2rem' : '0 1.2rem 1.2rem 1.2rem')};
   background-color: ${props => (props.client ? props.theme[props.theme.current].text.backgroundColor : '#fff')};
   background-image: ${props => (props.client ? props.theme[props.theme.current].text.backgroundImage : '')};
