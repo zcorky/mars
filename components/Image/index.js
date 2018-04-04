@@ -1,8 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
- * @Last Modified by: zero
- * @Last Modified time: 2018-04-03 14:11:11
+ * @Last Modified by: zhaoxiaoqi
+ * @Last Modified time: 2018-04-04 14:31:42
  */
 
 import React, { PureComponent } from 'react';
@@ -18,7 +18,6 @@ import 'react-imageview/dist/react-imageview.min.css';
 // import { getImagePrefix } from 'utils';
 
 // import classes from './index.less';
-
 const classes = {};
 
 // const IMAGE = getImagePrefix();
@@ -44,7 +43,6 @@ export default class Image extends React.Component {
 
   static defaultProps = {
     banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/v2-953608ff58261bdf314d03996a995a8d_r.jpg',
-    avatar: 'http://12292-zis-microservices-za-im-image.test.za.net/oss/file/1f10bd5b-ceeb-49d8-a49f-117155961bdc',
     client: false,
     commands: [],
     onSelect: () => {},
@@ -147,6 +145,8 @@ export default class Image extends React.Component {
               zIndex: 1,
               filter: !this.complete ? 'blur(4px)' : 'blur(0px)',
               transition: 'filter .7s cubic-bezier(1, 0.1, 1, 1)',
+              width: '100%',
+              borderRadius: '.6rem',
             }}
             role="presentation"
             src={banner}

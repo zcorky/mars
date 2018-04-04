@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   // width: calc(100% - 5rem);
   // padding: 0 2.2rem 0 2.2rem;
   text-decoration: none;
+  margin-bottom: 1rem;
 `;
 
 const Title = styled.div`
@@ -37,7 +38,9 @@ const ChoicesWrapper = styled.div`
   align-items: center;
   // width: 200px;
 
-  margin-right: -1.5rem;  
+  @media only screen and (min-device-width : 501px) {
+    margin-right: -1.5rem;  
+  } 
 `;
 
 const Button = styled.a`
@@ -62,15 +65,15 @@ const ChoiceWrapper = styled.div`
   margin-bottom: 1.2rem;
   // box-shadow: ${props => (props.checked ? '0 1px 4px 0 rgba(32,172,244,0.56)' : 'none')};
 
-  margin-right: 1.5rem;
   @media only screen and (max-device-width : 320px) {
-      width: 100%;
+    width: 100%;
   }
   @media only screen and (min-device-width : 321px) and (max-device-width : 500px) {
-      width: 45%;
+      width: calc((100% - 1.5rem)/2 );
   }
   @media only screen and (min-device-width : 501px) {
-      // flex: 1;     //open in project
+      margin-right: 1.5rem;
+      flex: 1;     //open in project
   }
 `;
 

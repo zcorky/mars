@@ -74,7 +74,7 @@ const ListWrapper = styled(List)`
   border-radius: ${props => (props.disableTitle ? '1.2rem' : '0 0 1.2rem 1.2rem')};
 `;
 
-export default class RList extends PureComponent {
+export default class TextList extends PureComponent {
   static type = 'TEXT_LIST';
   static label = '文本列表';
 
