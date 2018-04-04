@@ -198,15 +198,15 @@ export default class Radio extends PureComponent {
         value: "string | number", // 选择的实际值, 必须唯一
         description: '描述一', // 描述
       }, {
-          icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',  // 自定义icon链接
-          label: '选项二', // 文案
-          value: "string | number", // 选择的实际值, 必须唯一
-          description: '描述二', // 描述
+        icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',  // 自定义icon链接
+        label: '选项二', // 文案
+        value: "string | number", // 选择的实际值, 必须唯一
+        description: '描述二', // 描述
       }, {
-          icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
-          label: '选项三', // 文案
-          value: "string | number", // 选择的实际值, 必须唯一
-          description: '描述三', // 描述
+        icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
+        label: '选项三', // 文案
+        value: "string | number", // 选择的实际值, 必须唯一
+        description: '描述三', // 描述
       }
     ],
     confirmType: 'dialog',
@@ -214,9 +214,9 @@ export default class Radio extends PureComponent {
     confirmFields: ['id', 'step', 'detailId'],
   };
 
-  state = {
-    checked: {},
-  };
+  // state = {
+  //   checked: {},
+  // };
 
   onConfirm = (checked) => {
     const {
@@ -227,6 +227,12 @@ export default class Radio extends PureComponent {
     if (Object.keys(checked).length === 0) return false;
 
     const data = confirmFields.reduce((a, b) => Object.assign(a, { [b]: this.props[b] }), {});
+    onMessage(confirmType, {
+      ...data,
+      // value: this.state.checked.key,
+      selection: checked.label, // @TODO Bad Backend
+      label: checked.label,
+    });
   };
 
   render() {
