@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-04 18:34:59
+ * @Last Modified time: 2018-04-08 14:37:25
  */
 
 import React, { PureComponent } from 'react';
@@ -146,8 +146,8 @@ export default class RText extends PureComponent {
               dangerouslySetInnerHTML={{ __html: filterUrl(text) }}
             />
             <CommandWrapper>
-              {commands.map(e => (
-                <Action onClick={() => onCommand(e)} {...e} />
+              {commands.map((e, i) => (
+                <Action key={i} onClick={() => onCommand(e)} {...e} />
               ))}
             </CommandWrapper>
           </View>

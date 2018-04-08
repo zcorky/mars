@@ -249,10 +249,27 @@ export default class Checkbox extends PureComponent {
       confirmType, confirmFields,
       onMessage,
     } = this.props;
-
+    const group = this.state.group;
     if (Object.keys(this.state.group).length === 0) return false;
 
     const data = confirmFields.reduce((a, b) => Object.assign(a, { [b]: this.props[b] }), {});
+    
+    onMessage(confirmType, {
+      ...data,
+      // value: this.state.checked.key,
+      // selection: checked.label, // @TODO Bad Backend
+      label: group.length === 1 ? group[0].label : group.reduce((a, b) => `${a.label}, ${b.label}`),
+      value: group.length === 1 ? group[0].value : group.reduce((a, b) => `${a.value}, ${b.value}`),
+    });
+
+    // this.state.group.map(e =>
+    //   onMessage(confirmType, {
+    //     ...data,
+    //     selection: e.label,
+    //     label: e.label,
+    //     value: e.value,
+    //   }),
+    // );
   };
 
   render() {
@@ -278,7 +295,7 @@ export default class Checkbox extends PureComponent {
               label={e.label}
               value={e.value}
               description={e.description}
-              onChecked={() => this.onConfirm(e)}
+              onChecked={() => this.onChecked(e)}
             />
           ))}
         </ChoicesWrapper>

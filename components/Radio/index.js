@@ -227,11 +227,13 @@ export default class Radio extends PureComponent {
     if (Object.keys(checked).length === 0) return false;
 
     const data = confirmFields.reduce((a, b) => Object.assign(a, { [b]: this.props[b] }), {});
+    // console.log('confirm: ', data);
     onMessage(confirmType, {
       ...data,
       // value: this.state.checked.key,
-      selection: checked.label, // @TODO Bad Backend
+      // selection: checked.label, // @TODO Bad Backend
       label: checked.label,
+      value: checked.value,
     });
   };
 
