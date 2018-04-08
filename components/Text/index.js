@@ -2,13 +2,14 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-08 14:37:25
+ * @Last Modified time: 2018-04-08 17:29:05
  */
 
 import React, { PureComponent } from 'react';
 import { string, array, bool, func } from 'prop-types';
 import styled from 'styled-components';
-
+import { Rotate as Loading } from 'elfen/lib/general/Loading/rotate';
+import Icon from '../_internal/Icon';
 import { View, Text as rText } from 'elfen';
 
 import Action from '../_internal/Action';
@@ -109,6 +110,9 @@ export default class RText extends PureComponent {
     
     activeRichText: false,
     activeAck: false,
+    
+    waitingTime: 1000,
+    loadingTime: 1000 * 5,
   };
 
   state = {
@@ -117,7 +121,53 @@ export default class RText extends PureComponent {
   }
 
   componentDidMount() {
-    // this.waitToCreateTimer(RText.WAITING_TIME);
+    this.waitToCreateTimer(this.props.waitingTime);
+  }
+
+  onWarnClick = () => {
+    this.resendMessage();
+    this.waitToCreateTimer(this.props.waitingTime);
+  };
+
+  waitToCreateTimer = (time) => {
+    if (this.props.activeAck) {
+      setTimeout(() => {
+        if (!this.props.ack) {
+          this.setState({
+            waitSuccess: false,
+          });
+          this.createTimer(this.props.loadingTime);
+        }
+      }, time);
+    }
+  }
+
+  createTimer = (time) => {
+    if (this.props.activeAck) {
+      setTimeout(() => {
+        if (!this.props.ack) {
+          this.setState({
+            ackSuccess: false,
+          });
+        } else {
+          this.setState({
+            waitSuccess: true,
+          });
+        }
+      }, time);
+    }
+  }
+
+  resendMessage = () => {
+    const { type, ...others } = this.props;
+    const isResend = true;
+    const messages = { ...others, isResend };
+    this.activeAck = false;
+    this.setState({
+      ackSuccess: true,
+      waitSuccess: true,
+    });
+    this.props.onMessage(type, messages);
   }
 
   render() {
@@ -154,7 +204,7 @@ export default class RText extends PureComponent {
         )}
         {(!activeAck || (client && ack) || waitSuccess || !ackSuccess) ? null : (
           <LoadingWrapper>
-            {/* <style> {
+            <style> {
               `@keyframes rotate_load {
                 to {
                   transform: rotate(1turn);
@@ -164,8 +214,8 @@ export default class RText extends PureComponent {
                   animation: rotate_load 0.5s linear infinite;
               }`
             }
-            </style> */}
-            {/* <Loading style={{ width: '100%', height: '100%' }} color="rgba(0, 0, 0, .08)" /> */}
+            </style>
+            <Loading style={{ width: '100%', height: '100%' }} color="rgba(0, 0, 0, .08)" />
             {/* <Icon className="loading"
                       name="loading"
                       style={{ width: '20px', height: '20px' }}
@@ -175,9 +225,9 @@ export default class RText extends PureComponent {
         {(!activeAck || waitSuccess || ackSuccess) ? null : (
           <WarningWrapper>
             <ButtonWrapper onClick={this.onWarnClick}>
-              {/* <Icon name="warn"
+              <Icon name="warn"
                   style={{ width: '20px', height: '20px' }}
-                  color="rgba(225, 0, 0, 0.75)" /> */}
+                  color="rgba(225, 0, 0, 0.75)" />
             </ButtonWrapper>
           </WarningWrapper>
         )}
