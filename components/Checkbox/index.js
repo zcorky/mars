@@ -9,8 +9,9 @@
 
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import { string, number, arrayOf, array, shape } from 'prop-types';
+import { string, number, arrayOf, array, shape, bool } from 'prop-types';
 
+const NOOP = () => null;
 const Wrapper = styled.div`
   width: 100%;
   float: left;
@@ -152,7 +153,7 @@ const ChoiceLogo = styled.img`
   height: 21px;
 `;
 
-const ChoiceCheckbox = ({ checked, name, id, onChecked }) => (
+const ChoiceCheckbox = ({ disable, checked, name, id, onChecked }) => (
   <ChoiceCheckboxWrapper>
     <ChoiceCheckboxInput
       type="checkbox"
@@ -161,17 +162,18 @@ const ChoiceCheckbox = ({ checked, name, id, onChecked }) => (
       value={id}
       defaultChecked={checked}
       onClick={onChecked}
+      disabled={disable}
     />
     <ChoiceCheckboxLabel htmlFor={id} className="radio-label" />
   </ChoiceCheckboxWrapper>
 );
 
-const Choice = ({ id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
+const Choice = ({ disable, id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
   <ChoiceWrapper checked={checked}>
     <ChoiceTitle>{label}</ChoiceTitle>
     <ChoiceDescription>{description}</ChoiceDescription>
     <ChoiceLogo src={icon} />
-    <ChoiceCheckbox name={group} id={id} checked={checked} onChecked={onChecked} />
+    <ChoiceCheckbox disable={disable} name={group} id={id} checked={checked} onChecked={onChecked} />
   </ChoiceWrapper>
 );
 
@@ -194,6 +196,7 @@ export default class Checkbox extends PureComponent {
     confirmLabel: string,
     confirmType: string,
     conformFields: array,
+    disable: bool,
     // onMessage: func,
   }
 
@@ -225,11 +228,13 @@ export default class Checkbox extends PureComponent {
     confirmType: 'dialog',
     confirmLabel: '确定',
     confirmFields: ['id', 'step', 'detailId'],
+    disable: false,
   };
 
   state = {
     checked: {}, // this.props.choices ? this.props.choices[0] : {},
     group: [],
+    disable: this.props.disable,
   };
 
   onChecked = (checked) => {
@@ -249,6 +254,9 @@ export default class Checkbox extends PureComponent {
       confirmType, confirmFields,
       onMessage,
     } = this.props;
+    this.setState({
+      disable: true,
+    });
     const group = this.state.group;
     if (Object.keys(this.state.group).length === 0) return false;
 
@@ -275,7 +283,7 @@ export default class Checkbox extends PureComponent {
   render() {
     const {
       id, step, avatar, content, confirmLabel,
-      title, choices = Checkbox.choices,
+      title, choices = Checkbox.choices, disable,
       ...rest
     } = this.props;
 
@@ -290,16 +298,17 @@ export default class Checkbox extends PureComponent {
             <Choice
               key={index.toString()}
               group={group}
+              disable={this.state.disable}
               id={`${e.key}..${Math.random()}`}
               icon={e.icon}
               label={e.label}
               value={e.value}
               description={e.description}
-              onChecked={() => this.onChecked(e)}
+              onChecked={() => this.state.disable ? NOOP : this.onChecked(e)}
             />
           ))}
         </ChoicesWrapper>
-        <Button onClick={this.onConfirm} disabled={disabled}>{confirmLabel}</Button>
+        <Button onClick={this.state.disable ? NOOP : this.onConfirm} disabled={disabled}>{confirmLabel}</Button>
       </Wrapper>
     );
   }

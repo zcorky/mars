@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import { string, number, array, arrayOf, func, shape, oneOfType} from 'prop-types';
+import { string, number, array, arrayOf, func, shape, oneOfType, bool} from 'prop-types';
 
+const NOOP = () => null;
 const Wrapper = styled.div`
   width: 100%;
   // float: left;
@@ -144,7 +145,7 @@ const ChoiceLogo = styled.img`
   height: 21px;
 `;
 
-const ChoiceRadio = ({ checked, name, id, onChecked }) => (
+const ChoiceRadio = ({ disable, checked, name, id, onChecked }) => (
   <ChoiceRadioWrapper>
     <ChoiceRadioInput
       type="radio"
@@ -153,17 +154,18 @@ const ChoiceRadio = ({ checked, name, id, onChecked }) => (
       value={id}
       defaultChecked={checked}
       onClick={onChecked}
+      disabled={disable}
     />
     <ChoiceRadioLabel htmlFor={id} className="radio-label" />
   </ChoiceRadioWrapper>
 );
 
-const Choice = ({ id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
+const Choice = ({ disable, id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
   <ChoiceWrapper checked={checked}>
     <ChoiceTitle>{label}</ChoiceTitle>
     <ChoiceDescription>{description}</ChoiceDescription>
     <ChoiceLogo src={icon} />
-    <ChoiceRadio name={group} id={id} checked={checked} onChecked={onChecked} />
+    <ChoiceRadio disable={disable} name={group} id={id} checked={checked} onChecked={onChecked} />
   </ChoiceWrapper>
 );
 
@@ -186,6 +188,7 @@ export default class Radio extends PureComponent {
     confirmLabel: string,
     confirmType: string,
     conformFields: array,
+    disable: bool,
     onMessage: func,
   }
 
@@ -212,18 +215,22 @@ export default class Radio extends PureComponent {
     confirmType: 'dialog',
     confirmLabel: '确定',
     confirmFields: ['id', 'step', 'detailId'],
+    disable: false,
   };
 
-  // state = {
-  //   checked: {},
-  // };
+  state = {
+    // checked: {},
+    disable: this.props.disable,
+  };
 
   onConfirm = (checked) => {
     const {
       confirmType, confirmFields,
       onMessage,
     } = this.props;
-
+    this.setState({
+      disable: true,
+    });
     if (Object.keys(checked).length === 0) return false;
 
     const data = confirmFields.reduce((a, b) => Object.assign(a, { [b]: this.props[b] }), {});
@@ -234,13 +241,13 @@ export default class Radio extends PureComponent {
       // selection: checked.label, // @TODO Bad Backend
       label: checked.label,
       value: checked.value,
-    });
+    }); 
   };
 
   render() {
     const {
       id, step,
-      title, choices,
+      title, choices, disable,
       confirmLabel, ...rest
     } = this.props;
 
@@ -254,12 +261,13 @@ export default class Radio extends PureComponent {
             <Choice 
               key={index.toString()}
               group={group}
+              disable={this.state.disable}
               id={`${e.key}..${Math.random()}`}
               icon={e.icon}
               label={e.label}
               value={e.value}
               description={e.description}
-              onChecked={() => this.onConfirm(e)}
+              onChecked={() => this.state.disable ? NOOP : this.onConfirm(e)}
             />
           ))}
         </ChoicesWrapper>
