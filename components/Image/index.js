@@ -2,27 +2,35 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-04 14:31:42
+ * @Last Modified time: 2018-04-10 16:39:44
  */
 
 import React, { PureComponent } from 'react';
 import { string, bool, func, array } from 'prop-types';
 // import classnames from 'classnames';
 import styled from 'styled-components';
-import { Flex, View, Avatar, Icon } from 'elfen';
+import { Flex as rFlex, View as rView, Avatar, Icon } from 'elfen';
 import Action from '../_internal/Action';
 
-// import { SingleImgView } from 'react-imageview';
+import { SingleImgView } from 'react-imageview';
 import 'react-imageview/dist/react-imageview.min.css';
 
 // import { getImagePrefix } from 'utils';
 
 // import classes from './index.less';
-const classes = {};
+// const classes = {};
 
 // const IMAGE = getImagePrefix();
 
 const NOOP = () => null;
+
+const Flex = styled(rFlex)`
+  margin-bottom: 1rem;
+`;
+
+const View = styled(rView)`
+  max-width: 20rem;
+`;
 
 const CommandWrapper = styled(View)`
   margin-top: 1rem;
@@ -47,6 +55,10 @@ export default class Image extends React.Component {
     commands: [],
     onSelect: () => {},
     animation: true,
+
+    // getImagePrefix: this.props.getImagePrefix,
+    getImagePrefix: () => {},
+    getPrefix: () => {},
   };
 
   state = {
@@ -58,10 +70,13 @@ export default class Image extends React.Component {
     // if (this.props.client && this.props.uploadFile) {
     //   this.upload();
     // }
+    // if (!this.props.client) {
+    //   this.upload();
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.src !== nextProps.src) {
+    if (this.props.banner !== nextProps.banner) {
       this.complete = true;
     }
   }
@@ -69,7 +84,7 @@ export default class Image extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     // console.log(this.props, nextProps, this.props === nextProps);
     // console.log(this.state, nextState, this.state === nextState);
-    return this.props.src !== nextProps.src || this.state !== nextState;
+    return this.props.banner !== nextProps.banner || this.state !== nextState;
   }
 
 
@@ -78,11 +93,12 @@ export default class Image extends React.Component {
   complete = true;
 
   handleClickImage = () => {
-    // SingleImgView.show({
-    //   maxScale: 3,
-    //   imagelist: [this.props.src],
-    //   close: () => SingleImgView.hide(),
-    // });
+    SingleImgView.show({
+      maxScale: 3,
+      // imagelist: [this.addPrefix(this.props.banner)],
+      imagelist: [this.props.banner],
+      close: () => SingleImgView.hide(),
+    });
   };
 
   replaceImage = (image) => {
@@ -90,27 +106,30 @@ export default class Image extends React.Component {
     this.props.onMessage('image:replace', this.props.id, image);
   };
 
+
   upload = () => {
     const self = this;
     const replaceImage = this.replaceImage;
     const xhr = new XMLHttpRequest(); // eslint-disable-line
+    const getImagePrefix = this.props.getImagePrefix;
+    const IMAGE = getImagePrefix();
     // xhr.open('POST', 'http://12292-zis-microservices-za-im-image.test.za.net/oss/file/upload/', true);
-    // xhr.open('POST', `${IMAGE}/upload/`, true);
+    xhr.open('POST', `${IMAGE}/upload/`, true);
     xhr.onload = () => {};
 
     xhr.onerror = () => {
       this.setState({ error: true });
     };
-
     xhr.onreadystatechange = function onreadystatechange() {
       if (this.readyState !== 4) {
         return;
       }
-
       if (this.status === 200) {
         const json = JSON.parse(xhr.responseText);
         // replaceImage(`http://12292-zis-microservices-za-im-image.test.za.net/oss/file/${json.token}`);
-        // replaceImage(`${IMAGE}/${json.token}`);
+        replaceImage(`${IMAGE}/${json.token}`);
+        console.log('ready');
+
       } else {
         self.setState({ error: true });
       }
@@ -124,9 +143,15 @@ export default class Image extends React.Component {
     // };
 
     const formData = new FormData(); // eslint-disable-line
-    formData.append('file', this.props.uploadFile);
+    formData.append('file', this.props.banner);
     xhr.send(formData);
   };
+
+  addPrefix = (banner) => {
+    const getPrefix = this.props.getPrefix;
+    const IMAGE = getPrefix();
+    return `${IMAGE}${banner}`;
+  }
 
   count = 1;
 
@@ -134,13 +159,15 @@ export default class Image extends React.Component {
     const { error, progress } = this.state;
     const { client, banner, commands, animation, onSelect, onCommand = NOOP } = this.props;
     const flow = client ? 'row-reverse' : 'row';
-    const avatarClass = client ? classes.avatarClient : classes.avatar;
-
+    // const avatarClass = client ? classes.avatarClient : classes.avatar;
+    // const getPrefix = this.props.getPrefix;
+    // const IMAGE = getPrefix();
+    // const fullBanner = this.addPrefix(banner);
+    
     return (
-      <Flex className={classes.root} align="flex-start" justify="flex-start" flow={flow} onClick={onSelect}>
-        <View style={{ position: 'relative' }} className={classes.wrapper}>
+      <Flex align="flex-start" justify="flex-start" flow={flow} onClick={onSelect}>
+        <View style={{ position: 'relative' }}>
           <img
-            className={classes.image}
             style={{
               zIndex: 1,
               filter: !this.complete ? 'blur(4px)' : 'blur(0px)',
@@ -154,8 +181,8 @@ export default class Image extends React.Component {
             onLoad={this.props.onLoad}
           />
           <CommandWrapper>
-            {commands.map(e => (
-              <Action onClick={() => onCommand(e)} {...e} />
+            {commands.map((e, i) => (
+              <Action key={i} onClick={() => onCommand(e)} {...e} />
             ))}
           </CommandWrapper>
           <div
@@ -167,7 +194,7 @@ export default class Image extends React.Component {
               transition: 'all .3s ease',
               opacity: animation && (progress !== 100) ? 1 : 0,
             }}
-            className={classes.mask}
+            // className={classes.mask}
           />
           {!error ? (<div
             style={{
@@ -175,7 +202,7 @@ export default class Image extends React.Component {
               opacity: animation && (progress !== 100) ? 1 : 0,
               pointerEvents: this.props.uploadFile && animation && (progress !== 100) ? 'auto' : 'none',
             }}
-            className={classes.data}
+            // className={classes.data}
           >
             {/* parseInt(progress, 10) */}
           </div>) : (
@@ -186,7 +213,7 @@ export default class Image extends React.Component {
                 backgroundColor: 'rgba(0, 0, 0, .38)',
                 pointerEvents: this.props.uploadFile && (progress !== 100) ? 'auto' : 'none',
               }}
-              className={classes.data}
+              // className={classes.data}
             >
               <Icon name="error" color="#F76260" size={64} />
             </div>
