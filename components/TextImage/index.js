@@ -88,8 +88,8 @@ export default class TextImage extends PureComponent {
   };
 
   render() {
-    const {  list, commands } = this.props;
-    const { banner, title, subTitle, keyDescription, description, url } = list[0];
+    const { commands } = this.props;
+    const { banner, title, subTitle, keyDescription, description, url } = this.props;
     const { client, avatar, onSelect, onCommand } = this.props;
     // console.log('props: ', this.props);
     return (
