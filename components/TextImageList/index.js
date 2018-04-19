@@ -6,7 +6,9 @@ import { View, List as rList, ListItem as rListItem, Avatar as rAvatar } from 'e
 
 import { TextImageItem } from '../ListItem';
 import Action from '../_internal/Action';
-import styles from './index.less';
+// import styles from './index.less';
+
+const styles = {};
 
 const Wrapper = styled(View)`
   width: 100%;
@@ -32,11 +34,31 @@ const List = styled(rList)`
 const ListItem = styled(rListItem)`
   width: 100%;
   padding-bottom: 1.2rem;
-`
+`;
 
 const CommandWrapper = styled.div`
   margin-top: 1rem;
   flex: 1;
+`;
+
+const Divide = styled.div`
+  position: absolute;
+  background-color: #fff;
+  width: 100%;
+  height: 1px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 2rem);
+    margin-left: 1.4rem;
+    height: 100%;
+    // background-color: #889099; // color by design, error
+    background-color: #ECECEC;
+    transform: scaleY(.5);
+  }
 `;
 
 const Avatar = styled(rAvatar)`
@@ -86,7 +108,7 @@ export default class TextImageList extends PureComponent {
         subTitle: '子标题',
         keyDescription: '关键信息',
         description: '详细信息',
-        url: '',
+        url: 'www.baidu.com',
       },
       {
         banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
@@ -94,7 +116,7 @@ export default class TextImageList extends PureComponent {
         subTitle: '子标题',
         keyDescription: '关键信息',
         description: '详细信息',
-        url: '',
+        url: 'www.baidu.com',
       },
       {
         banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
@@ -102,7 +124,7 @@ export default class TextImageList extends PureComponent {
         subTitle: '子标题',
         keyDescription: '关键信息',
         description: '详细信息',
-        url: '',
+        url: 'www.baidu.com',
       },
     ],
   };
@@ -115,7 +137,10 @@ export default class TextImageList extends PureComponent {
         <Content>
           <List className={styles.products}>
             {list.map((e, i) => (
-              <ListItem key={i}><TextImageItem {...e} /></ListItem>
+              <ListItem key={i}>
+                <TextImageItem {...e} />
+                { i !== list.length - 1 ? <Divide /> : null}
+              </ListItem>
             ))}
           </List>
           <CommandWrapper>

@@ -84,12 +84,14 @@ export default class TextImage extends PureComponent {
       label: '查看更多方案',
       value: '123',
     }],
+    list: []
   };
 
   render() {
-    const { banner, title, subTitle, keyDescription, description, url, commands } = this.props;
+    const { commands } = this.props;
+    const { banner, title, subTitle, keyDescription, description, url } = this.props;
     const { client, avatar, onSelect, onCommand } = this.props;
-
+    // console.log('props: ', this.props);
     return (
       <Wrapper onClick={onSelect}>
           <Content>

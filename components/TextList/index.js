@@ -74,7 +74,7 @@ const ListWrapper = styled(List)`
   border-radius: ${props => (props.disableTitle ? '1.2rem' : '0 0 1.2rem 1.2rem')};
 `;
 
-export default class RList extends PureComponent {
+export default class TextList extends PureComponent {
   static type = 'TEXT_LIST';
   static label = '文本列表';
 
@@ -108,7 +108,7 @@ export default class RList extends PureComponent {
   };
 
   render() {
-    const {title, list, commands = [], onSelect } = this.props;
+    const {title, list, commands = [], onText, onSelect } = this.props;
     const disableTitle = !title;
 
     return (
@@ -119,7 +119,7 @@ export default class RList extends PureComponent {
           <ListWrapper disableTitle={disableTitle}>
             {list.length === 0 ? <View style={{ textAlign: 'center', padding: '2rem' }}>尚未发现常见问题</View> : null}
             {
-                list.map((e, i) => <QuestionItem key={i} text={e.text} value={e.value}/>)
+                list.map((e, i) => <QuestionItem key={i} text={e.text} value={e.value} onClick={onText}/>)
             }
           </ListWrapper>
         </CardWrapper>

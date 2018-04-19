@@ -56,9 +56,9 @@ const Action = ({ type, icon, label, url, onClick, ...others }) => (
 );
 
 Action.propTypes = {
-  type: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  icon: PropTypes.string,
+  label: PropTypes.string,
   url: PropTypes.string,
   onClick: PropTypes.func,
 };

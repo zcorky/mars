@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 11:34:18
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-03 14:38:48
+ * @Last Modified time: 2018-04-09 16:38:03
  */
 
 import React, { PureComponent } from 'react';
@@ -75,7 +75,7 @@ export default class QuestionItem extends PureComponent {
   render() {
     const { text, value, onClick = NOOP } = this.props;
     return (
-      <QuestionWrapper onClick={onClick}>
+      <QuestionWrapper onClick={() => onClick(text)}>
         <QuestionText>{text}</QuestionText>
         <QuestionIcon name="more" size="1rem" style={{ marginRight: -12 }} />
       </QuestionWrapper>
