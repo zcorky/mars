@@ -9,7 +9,7 @@ const ListItemWrapper = styled.div`
     border-radius: 1.2rem;
     // padding: 0 1.2rem;
 `
-const Wrapper = styled.div`
+const Wrapper = styled.a`
   position: relative;
   display: block;
   width: 100%;
