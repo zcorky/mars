@@ -34,6 +34,7 @@ const List = styled(rList)`
 const ListItem = styled(rListItem)`
   width: 100%;
   padding-bottom: 1.2rem;
+  position: relative;
 `;
 
 const CommandWrapper = styled.div`
@@ -52,8 +53,8 @@ const Divide = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(100% - 2rem);
-    margin-left: 1.4rem;
+    width: 100%;
+    // margin-left: 1.4rem;
     height: 100%;
     // background-color: #889099; // color by design, error
     background-color: #ECECEC;
