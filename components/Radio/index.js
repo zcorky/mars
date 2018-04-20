@@ -5,7 +5,7 @@ import { string, number, array, arrayOf, func, shape, oneOfType, bool} from 'pro
 const NOOP = () => null;
 const Wrapper = styled.div`
   width: 100%;
-  // float: left;
+  float: left;
   position: relative;
   background-color: #fff;
   border-radius: 1.2rem;

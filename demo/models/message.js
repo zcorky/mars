@@ -118,21 +118,21 @@ export default {
             subTitle: '险种不够经验来凑',
             keyDescription: '￥200',
             description: '月销 100 份',
-            url: '',
+            url: 'www.baidu.com',
           }, {
             banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
             title: '尊享e生百万医疗保险',
             subTitle: '险种不够经验来凑',
             keyDescription: '￥200',
             description: '月销 100 份',
-            url: '',
+            url: 'www.baidu.com',
           }, {
             banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
             title: '尊享e生百万医疗保险',
             subTitle: '险种不够经验来凑',
             keyDescription: '￥200',
             description: '月销 100 份',
-            url: '',
+            url: 'www.baidu.com',
           }
         ]
       }
