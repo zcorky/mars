@@ -266,8 +266,8 @@ export default class Checkbox extends PureComponent {
       ...data,
       // value: this.state.checked.key,
       // selection: checked.label, // @TODO Bad Backend
-      label: group.length === 1 ? group[0].label : group.reduce((a, b) => `${a.label}, ${b.label}`),
-      value: group.length === 1 ? group[0].value : group.reduce((a, b) => `${a.value}, ${b.value}`),
+      label: group.length === 1 ? group[0].label : group.reduce((a, b) => `${a.label || a}, ${b.label}`),
+      value: group.length === 1 ? group[0].value : group.reduce((a, b) => `${a.value || a}, ${b.value}`),
     });
 
     // this.state.group.map(e =>

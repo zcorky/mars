@@ -44,6 +44,10 @@ const SubTitle = styled.div`
   font-size: ${props => props.theme.palette.fontSize2};
   color: ${props => props.theme.palette.color2};
   margin-top: .25rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 // const Tags = styled.div`
 //   // font-size: 1.2rem;
@@ -81,6 +85,12 @@ const DescriptionWrapper = styled.div`
 const KeyDescription = styled.span`
   font-size: ${props => props.theme.palette.fontSize1};
   color: ${props => props.theme.palette.color9};
+
+  display: line-block;
+  width: 4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
 const Divide = styled.div`
@@ -93,6 +103,12 @@ const Divide = styled.div`
 
 // const Count = styled.span``;
 const Description = styled.span`
+  display: line-block;
+  width: 5rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 
@@ -102,8 +118,8 @@ export default class TextImageItem extends PureComponent {
     banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/product.png',
     title: '标题',
     subTitle: '子标题',
-    keyDescription: '关键信息',
-    description: '详细信息',
+    keyDescription: '关键信息关键信息',
+    description: '详细信息详细信息',
     url: '',
   }
 
