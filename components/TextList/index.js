@@ -14,6 +14,7 @@ import styled from 'styled-components';
 
 import { View, Text, List, ListItem } from 'elfen';
 import { QuestionItem } from '../ListItem';
+import Action from '../_internal/Action';
 
 // import getRenderItembyType from './utils';
 
@@ -59,6 +60,11 @@ const Divide = styled.div`
     background-color: #ECECEC;
     transform: scaleY(.5);
   }
+`;
+
+const CommandWrapper = styled.div`
+  margin-top: 1rem;
+  flex: 1;
 `;
 
 
@@ -108,7 +114,7 @@ export default class TextList extends PureComponent {
   };
 
   render() {
-    const {title, list, commands = [], onText, onSelect } = this.props;
+    const {title, list, commands = [], onText, onSelect, onCommand } = this.props;
     const disableTitle = !title;
 
     return (
@@ -122,8 +128,13 @@ export default class TextList extends PureComponent {
                 list.map((e, i) => <QuestionItem key={i} text={e.text} value={e.value} onClick={onText}/>)
             }
           </ListWrapper>
+          <CommandWrapper>
+            {commands.map((e, i) => (
+              <Action key={i} onClick={() => onCommand(e)} {...e} />
+            ))}
+          </CommandWrapper>
         </CardWrapper>
-    </Wrapper>
+      </Wrapper>
     );
   }
 }
