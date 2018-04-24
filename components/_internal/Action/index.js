@@ -48,10 +48,10 @@ const Button = styled.button`
   }
 `;
 
-const Action = ({ type, icon, label, url, onClick, ...others }) => (
+const Action = ({ type, icon, label, value, onClick, ...others }) => (
   <Button {...others} onClick={type === 'link' ? null : onClick}>
     <Icon name={icon} />
-    <Label type={type} url={url}>{label}</Label>
+    <Label type={type} url={value}>{label}</Label>
   </Button>
 );
 
@@ -59,7 +59,7 @@ Action.propTypes = {
   type: PropTypes.string,
   icon: PropTypes.string,
   label: PropTypes.string,
-  url: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onClick: PropTypes.func,
 };
 
