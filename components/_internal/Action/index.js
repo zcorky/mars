@@ -21,7 +21,7 @@ const Label = styled(TypedLabel)`
   font-weight: bold;
   // color: #2AA5F9;
   // font-size: ${props => props.theme.palette.fontSize2};
-  // color: ${props => props.theme.palette.color4};
+  color: ${props => props.theme.palette.color4};
 `;
 
 const Button = styled.button`
@@ -48,10 +48,10 @@ const Button = styled.button`
   }
 `;
 
-const Action = ({ type, icon, label, value, onClick, ...others }) => (
+const Action = ({ type, icon, label, url, value, onClick, ...others }) => (
   <Button {...others} onClick={type === 'link' ? null : onClick}>
     <Icon name={icon} />
-    <Label type={type} url={value}>{label}</Label>
+    <Label type={type} url={url || value}>{label}</Label>
   </Button>
 );
 
