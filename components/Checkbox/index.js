@@ -237,6 +237,14 @@ export default class Checkbox extends PureComponent {
     disable: this.props.disable,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.disable !== nextProps.disable) {
+      this.setState({
+        disable: nextProps.disable,
+      });
+    }
+  }
+
   onChecked = (checked) => {
     this.setState({ checked });
     if (this.state.group.indexOf(checked) < 0) {

@@ -223,6 +223,14 @@ export default class Radio extends PureComponent {
     disable: this.props.disable,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.disable !== nextProps.disable) {
+      this.setState({
+        disable: nextProps.disable,
+      });
+    }
+  }
+
   onConfirm = (checked) => {
     const {
       confirmType, confirmFields,
