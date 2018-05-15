@@ -25,10 +25,10 @@ const REGS = {
 };
 
 const REPLACE_REGS = {
-  URL: /\{URL[0-9]\}/ig,
-  IP: /\{IP[0-9]\}/ig,
-  TEL: /\{TEL[0-9]\}/ig,
-  EMAIL: /\{EMAIL[0-9]\}/ig,
+  URL: /\{URL[0-9]+\}/ig,
+  IP: /\{IP[0-9]+\}/ig,
+  TEL: /\{TEL[0-9]+\}/ig,
+  EMAIL: /\{EMAIL[0-9]+\}/ig,
 };
 
 const textContainer = {

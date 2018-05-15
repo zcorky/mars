@@ -1,8 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
- * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-10 16:39:44
+ * @Last Modified by: zero
+ * @Last Modified time: 2018-05-07 14:52:02
  */
 
 import React, { PureComponent } from 'react';
@@ -50,7 +50,7 @@ export default class Image extends React.Component {
   };
 
   static defaultProps = {
-    banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/v2-953608ff58261bdf314d03996a995a8d_r.jpg',
+    banner: null, // 'http://obzxlsphd.bkt.clouddn.com//zzz/images/v2-953608ff58261bdf314d03996a995a8d_r.jpg',
     client: false,
     commands: [],
     onSelect: () => {},
