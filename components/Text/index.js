@@ -1,8 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
- * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-19 14:03:52
+ * @Last Modified by: zero
+ * @Last Modified time: 2018-05-16 17:03:44
  */
 
 import React, { PureComponent } from 'react';
@@ -102,17 +102,17 @@ export default class RText extends PureComponent {
     activeAck: bool,
     onSelect: func,
     onCommand: func,
+    onTimeout: func,
   };
 
   static defaultProps = {
     text: '这是文本这是文本这是文本这是文本这是文本这是文本这是文本这是文本',
     commands: [],
-    
     activeRichText: false,
     activeAck: false,
-    
     waitingTime: 1000,
     loadingTime: 1000 * 5,
+    onTimeout: NOOP,
   };
 
   state = {
@@ -149,6 +149,9 @@ export default class RText extends PureComponent {
           this.setState({
             ackSuccess: false,
           });
+
+          const messageId = this.props.id;
+          this.props.onTimeout(messageId);
         } else {
           this.setState({
             waitSuccess: true,
