@@ -1,9 +1,8 @@
 export default {
-  namespace: 'app',
+  namespace: 'card',
 
   state: {
     count: 0,
-
   },
 
   reducers: {
@@ -18,7 +17,6 @@ export default {
         ...rest,
         count: count - 1,
       };
-    }
-    
+    },
   },
 };

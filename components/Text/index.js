@@ -1,23 +1,21 @@
-/**
- * @Author: zero
- * @Date:   2017-07-28T10:57:28+08:00
- * @Last modified by:   zero
- * @Last modified time: 2017-10-20T14:26:07+08:00
+/*
+ * @Author: zhaoxiaoqi
+ * @Date: 2018-03-13 10:04:31
+ * @Last Modified by: zero
+ * @Last Modified time: 2018-05-16 17:29:19
  */
+
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import { string, array, bool, func } from 'prop-types';
 import styled from 'styled-components';
+import { Rotate as Loading } from 'elfen/lib/general/Loading/rotate';
+import Icon from '../_internal/Icon';
+import { View, Text as rText } from 'elfen';
 
-import { View, Text as rText, Avatar as rAvatar } from 'elfen';
-
-import Action from '../Action';
+import Action from '../_internal/Action';
 import { filterUrl } from './utils';
 
-const Avatar = styled(rAvatar)`
-  flexShrink: 0;
-  margin-left: ${props => (props.client ? '1rem' : 'unset')};
-  margin-right: ${props => (!props.client ? '1rem' : 'unset')};
-`;
+const NOOP = () => null;
 
 const Text = styled(rText)`
   text-align: justify;
@@ -28,16 +26,12 @@ const Text = styled(rText)`
   padding: 1rem 1.4rem 1rem 1.4rem;
   display: inline-block;
   word-break: break-all;
-  max-width: 70%;
-  // max-width: 100%;
+  max-width: 85%;
   user-select: text;
-  // font-size: 1.4rem;
   font-size: ${props => props.theme.palette.fontSize1};
   color: ${props => (props.client ? '#fff' : '')};
-  font-weight: ${props => (props.client ? '200' : '')};
+  // font-weight: ${props => (props.client ? '200' : '')};
   border-radius: ${props => (props.client ? '1.2rem 0 1.2rem 1.2rem' : '0 1.2rem 1.2rem 1.2rem')};
-  // background-color: ${props => (props.client ? '#2AA5F9' : '#fff')};
-  // background-image: ${props => (props.client ? 'linear-gradient(90deg, #41C8F9 0%, #0BA5F5 99%)' : '')};
   background-color: ${props => (props.client ? props.theme[props.theme.current].text.backgroundColor : '#fff')};
   background-image: ${props => (props.client ? props.theme[props.theme.current].text.backgroundImage : '')};
   box-shadow: 0 3px 5px 1px ${props => props.theme[props.theme.current].text.shadowColor};
@@ -48,7 +42,7 @@ const Text = styled(rText)`
 `;
 
 const TextWrapper = styled(View)`
-  // color: #393939;
+  width: 100%;
   color: ${props => props.theme.palette.color1};
   font-size: 1.4rem;
   margin-bottom: 1rem;
@@ -96,27 +90,29 @@ const ButtonWrapper = styled.button`
   display: ${props => (props.hide ? 'none' : 'block')};
 `;
 
-class RText extends PureComponent {
-  static label = '文本消息';
-  static WAITING_TIME = 1000;
-  static LOADING_TIME = 1000 * 5;
+export default class RText extends PureComponent {
+  static type = 'TEXT';
+  static label = '文本卡片';
 
   static propTypes = {
-    text: PropTypes.string,
-    avatar: PropTypes.string,
-    // @other
-    activeRichText: PropTypes.bool,
-    ack: PropTypes.bool,
-    activeAck: PropTypes.bool,
-    commands: PropTypes.array,
-    onSelect: PropTypes.func,
-    onCommand: PropTypes.func,
+    text: string.isRequired,
+    commands: array,
+
+    ack: bool,
+    activeAck: bool,
+    onSelect: func,
+    onCommand: func,
+    onTimeout: func,
   };
 
   static defaultProps = {
+    text: '这是文本这是文本这是文本这是文本这是文本这是文本这是文本这是文本',
+    commands: [],
     activeRichText: false,
     activeAck: false,
-    commands: [],
+    waitingTime: 1000,
+    loadingTime: 1000 * 5,
+    onTimeout: NOOP,
   };
 
   state = {
@@ -125,12 +121,12 @@ class RText extends PureComponent {
   }
 
   componentDidMount() {
-    this.waitToCreateTimer(RText.WAITING_TIME);
+    this.waitToCreateTimer(this.props.waitingTime);
   }
 
   onWarnClick = () => {
     this.resendMessage();
-    this.waitToCreateTimer(RText.WAITING_TIME);
+    this.waitToCreateTimer(this.props.waitingTime);
   };
 
   waitToCreateTimer = (time) => {
@@ -140,7 +136,7 @@ class RText extends PureComponent {
           this.setState({
             waitSuccess: false,
           });
-          this.createTimer(RText.LOADING_TIME);
+          this.createTimer(this.props.loadingTime);
         }
       }, time);
     }
@@ -153,6 +149,9 @@ class RText extends PureComponent {
           this.setState({
             ackSuccess: false,
           });
+
+          const messageId = this.props.id;
+          this.props.onTimeout(messageId);
         } else {
           this.setState({
             waitSuccess: true,
@@ -174,21 +173,20 @@ class RText extends PureComponent {
     this.props.onMessage(type, messages);
   }
 
-  // turnManual = () => {
-  //   this.props.dispatch({ type: 'app/robot->man' });
-  // }
-
   render() {
     const {
-      ack, activeAck, text, avatar, onSelect, commands = [], onCommand, ...others
+      text, commands, 
+      ack, activeAck, onSelect = NOOP, onCommand = NOOP,
+      ...others
     } = this.props;
+
     const { client } = others;
+
     const ackSuccess = this.state.ackSuccess;
     const waitSuccess = this.state.waitSuccess;
 
     return (
       <TextWrapper client={client} onClick={onSelect}>
-        <Avatar client={client} size={40} src={avatar} />
         {commands.length === 0 ? (
           <Text
             client={client}
@@ -201,15 +199,15 @@ class RText extends PureComponent {
               dangerouslySetInnerHTML={{ __html: filterUrl(text) }}
             />
             <CommandWrapper>
-              {commands.map(e => (
-                <Action onClick={() => onCommand(e)} {...e} />
+              {commands.map((e, i) => (
+                <Action key={i} onClick={() => onCommand(e)} {...e} />
               ))}
             </CommandWrapper>
           </View>
         )}
         {(!activeAck || (client && ack) || waitSuccess || !ackSuccess) ? null : (
           <LoadingWrapper>
-            {/* <style> {
+            <style> {
               `@keyframes rotate_load {
                 to {
                   transform: rotate(1turn);
@@ -219,8 +217,8 @@ class RText extends PureComponent {
                   animation: rotate_load 0.5s linear infinite;
               }`
             }
-            </style> */}
-            {/* <Loading style={{ width: '100%', height: '100%' }} color="rgba(0, 0, 0, .08)" /> */}
+            </style>
+            <Loading style={{ width: '100%', height: '100%' }} color="rgba(0, 0, 0, .08)" />
             {/* <Icon className="loading"
                       name="loading"
                       style={{ width: '20px', height: '20px' }}
@@ -230,9 +228,9 @@ class RText extends PureComponent {
         {(!activeAck || waitSuccess || ackSuccess) ? null : (
           <WarningWrapper>
             <ButtonWrapper onClick={this.onWarnClick}>
-              {/* <Icon name="warn"
+              <Icon name="warn"
                   style={{ width: '20px', height: '20px' }}
-                  color="rgba(225, 0, 0, 0.75)" /> */}
+                  color="rgba(225, 0, 0, 0.75)" />
             </ButtonWrapper>
           </WarningWrapper>
         )}
@@ -240,7 +238,3 @@ class RText extends PureComponent {
     );
   }
 }
-
-export default () => (
-  <div>123</div>
-);

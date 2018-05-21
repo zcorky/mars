@@ -21,7 +21,7 @@ const Label = styled(TypedLabel)`
   font-weight: bold;
   // color: #2AA5F9;
   // font-size: ${props => props.theme.palette.fontSize2};
-  // color: ${props => props.theme.palette.color4};
+  color: ${props => props.theme.palette.color4};
 `;
 
 const Button = styled.button`
@@ -48,19 +48,19 @@ const Button = styled.button`
   }
 `;
 
-const Action = ({ type, icon, label, url, onClick, ...others }) => (
+const Action = ({ type, icon, label, url, value, onClick, ...others }) => (
   <Button {...others} onClick={type === 'link' ? null : onClick}>
     <Icon name={icon} />
-    <Label type={type} url={url}>{label}</Label>
+    <Label type={type} url={url || value}>{label}</Label>
   </Button>
 );
 
 Action.propTypes = {
-  type: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  type: PropTypes.string,
+  icon: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onClick: PropTypes.func,
 };
 
 export default Action;

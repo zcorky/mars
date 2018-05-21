@@ -1,0 +1,54 @@
+/**
+* @Author: eason
+* @Date:   2017-07-24T11:28:32+08:00
+* @Email:  uniquecolesmith@gmail.com
+* @Last modified by:   eason
+* @Last modified time: 2017-07-24T12:19:32+08:00
+* @License: MIT
+* @Copyright: Eason(uniquecolesmith@gmail.com)
+*/
+@avatarMargin: 1rem;
+
+.root {
+  margin-bottom: 1rem;
+
+  .avatar {
+    margin-right: @avatarMargin;
+  }
+
+  .avatarClient{
+    margin-left: @avatarMargin;
+  }
+
+  .wrapper {
+    max-width: 20rem;
+
+    .image {
+      width: 100%;
+      // height: 10rem;
+      border-radius: .6rem;
+    }
+
+    .mask {
+      border-radius: 0 0 .6rem .6rem;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 0;
+      background-color: rgba(0, 0, 0, .38);
+    }
+
+    .data {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.38);
+      transition: all .3s ease;
+    }
+  }
+}

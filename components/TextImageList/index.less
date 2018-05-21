@@ -1,0 +1,106 @@
+/**
+ * @Author: zero
+ * @Date:   2017-07-28T10:57:28+08:00
+ * @Last modified by:   zero
+ * @Last modified time: 2017-08-03T17:40:43+08:00
+ */
+ .normal {
+    position: relative;
+    margin-bottom: 1.2rem;
+  
+    .products {
+      background-color: #fff;
+      border-radius: 1.2rem;
+      padding: 0 1.2rem;
+  
+      .product {
+        display: flex;
+        padding: 1rem 0;
+        border-bottom: 1px solid #F9F9F9;
+  
+        &:last-of-type {
+          border: none;
+        }
+  
+        .banner {
+          border-radius: .2rem;
+          margin-right: 1rem;
+          width: 6.4rem;
+          height: 6.4rem;
+        }
+  
+        .info {
+          flex: 1;
+  
+          .title {
+            font-size: 14px;
+            line-height: 2rem;
+            color: #000;
+            font-weight: bold;
+            margin-bottom: .2rem;
+          }
+  
+          .tags {
+            font-size: 12px;
+            color: #616161;
+            display: flex;
+            // justify-content: space-between;
+            justify-content: flex-start;
+  
+            .tag {
+              margin-right: 1.6rem;
+            }
+          }
+  
+          .prices {
+            color: #FFAE27;
+            font-size: 12px;
+            margin-top: 1rem;
+            // line-height: 2.2rem;
+  
+            .price {
+              margin-right: 2rem;
+              display: flex;
+              align-items: center;
+  
+              .seq {
+                color: #F6A623;
+                display: flex;
+                align-items: center;
+                margin-right: .4rem;
+              }
+  
+              .num {
+                color: #F6A623;
+                font-size: 16px;
+              }
+  
+              .extra {
+                color: #616161;
+              }
+            }
+  
+            .sell {
+              color: #616161;
+            }
+          }
+        }
+      }
+    }
+  
+    .btns {
+      padding-top: 1rem;
+  
+      button {
+        color: #2AA5F9;
+        font-size: 12px;
+        border: 1px solid #2AA5F9;
+        padding: .8rem 1.6rem;
+        background-color: transparent;
+        border-radius: 1.6rem;
+        cursor: pointer;
+        outline: none;
+      }
+    }
+  }
+  

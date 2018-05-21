@@ -1,6 +1,15 @@
+/*
+ * @Author: zero (uniquecolesmith@gmail.com>)
+ * @Date: Friday, 16th March 2018 2:51:51 pm
+ * Author: zero (uniquecolesmith@gmail.com)
+ * Last Modified: Friday, 23rd March 2018 1:37:10 pm
+ * Modified By: zero (uniquecolesmith@gmail.com>)
+ * Copyright 2017 - 2018 Your Company, Your Company
+ */
+
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import { string, number, array, arrayOf, func, shape, oneOfType, bool} from 'prop-types';
+import { string, number, arrayOf, array, shape, bool } from 'prop-types';
 
 const NOOP = () => null;
 const Wrapper = styled.div`
@@ -32,16 +41,14 @@ const Title = styled.div`
 `;
 
 const ChoicesWrapper = styled.div`
-  padding: 1.2rem 1.2rem 1.0rem;
+  padding: 1.2rem 1.2rem 0;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  // width: 200px;
-
   @media only screen and (min-device-width : 501px) {
     margin-right: -1.5rem;  
-  } 
+  }
 `;
 
 const Button = styled.a`
@@ -59,6 +66,7 @@ const Button = styled.a`
 const ChoiceWrapper = styled.div`
   cursor: pointer;
   position: relative;
+  box-sizing: border-box;
   width: 116px;
   height: 48px;
   // border: 1px solid ${props => (props.checked ? '#20ACF4' : '#EAEAEA')};
@@ -67,7 +75,7 @@ const ChoiceWrapper = styled.div`
   // box-shadow: ${props => (props.checked ? '0 1px 4px 0 rgba(32,172,244,0.56)' : 'none')};
 
   @media only screen and (max-device-width : 320px) {
-    width: 100%;
+      width: 100%;
   }
   @media only screen and (min-device-width : 321px) and (max-device-width : 500px) {
       width: calc((100% - 1.5rem)/2 );
@@ -78,11 +86,11 @@ const ChoiceWrapper = styled.div`
   }
 `;
 
-const ChoiceRadioWrapper = styled.div`
+const ChoiceCheckboxWrapper = styled.div`
 
 `;
 
-const ChoiceRadioLabel = styled.label`
+const ChoiceCheckboxLabel = styled.label`
   position: absolute;
   top: 0;
   left: 0;
@@ -91,7 +99,7 @@ const ChoiceRadioLabel = styled.label`
   border-radius: 6px;
 `;
 
-const ChoiceRadioInput = styled.input`
+const ChoiceCheckboxInput = styled.input`
   visibility: hidden;
   position: absolute;
   top: 0;
@@ -145,10 +153,10 @@ const ChoiceLogo = styled.img`
   height: 21px;
 `;
 
-const ChoiceRadio = ({ disable, checked, name, id, onChecked }) => (
-  <ChoiceRadioWrapper>
-    <ChoiceRadioInput
-      type="radio"
+const ChoiceCheckbox = ({ disable, checked, name, id, onChecked }) => (
+  <ChoiceCheckboxWrapper>
+    <ChoiceCheckboxInput
+      type="checkbox"
       name={name}
       id={id}
       value={id}
@@ -156,8 +164,8 @@ const ChoiceRadio = ({ disable, checked, name, id, onChecked }) => (
       onClick={onChecked}
       disabled={disable}
     />
-    <ChoiceRadioLabel htmlFor={id} className="radio-label" />
-  </ChoiceRadioWrapper>
+    <ChoiceCheckboxLabel htmlFor={id} className="radio-label" />
+  </ChoiceCheckboxWrapper>
 );
 
 const Choice = ({ disable, id, group = 'choice', icon, label, value, description, checked, onChecked }) => (
@@ -165,13 +173,13 @@ const Choice = ({ disable, id, group = 'choice', icon, label, value, description
     <ChoiceTitle>{label}</ChoiceTitle>
     <ChoiceDescription>{description}</ChoiceDescription>
     <ChoiceLogo src={icon} />
-    <ChoiceRadio disable={disable} name={group} id={id} checked={checked} onChecked={onChecked} />
+    <ChoiceCheckbox disable={disable} name={group} id={id} checked={checked} onChecked={onChecked} />
   </ChoiceWrapper>
 );
 
-export default class Radio extends PureComponent {
-  static type = 'RADIO';
-  static label = '单选';
+export default class Checkbox extends PureComponent {
+  static type = 'CHECKBOX';
+  static label = '多选';
 
   static propTypes = {
     id: string,
@@ -180,20 +188,20 @@ export default class Radio extends PureComponent {
     choices: arrayOf(
       shape({
         icon: string,
-        label: string,
-        value: oneOfType([string, number]),
+        title: string,
         description: string,
+        key: string,
       }),
     ),
     confirmLabel: string,
     confirmType: string,
     conformFields: array,
     disable: bool,
-    onMessage: func,
+    // onMessage: func,
   }
 
-  static defaultProps = {
-    title: '单选卡片标题',
+  static defaultProps = { 
+    title: '多选卡片标题',
     choices: [
       {
         icon: 'https://im2.zhongan.io/image/file/bc7edfd2-8b5c-4e87-b6a3-6a76ee87abb4', // 自定义icon链接
@@ -201,15 +209,20 @@ export default class Radio extends PureComponent {
         value: "string | number", // 选择的实际值, 必须唯一
         description: '描述一', // 描述
       }, {
-        icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',  // 自定义icon链接
-        label: '选项二', // 文案
-        value: "string | number", // 选择的实际值, 必须唯一
-        description: '描述二', // 描述
+          icon: 'https://im2.zhongan.io/image/file/7dd866fd-b0a3-4adb-a2f3-e38296cd3a3a',  // 自定义icon链接
+          label: '选项二', // 文案
+          value: "string | number", // 选择的实际值, 必须唯一
+          description: '描述二', // 描述
+      }, {
+          icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
+          label: '选项三', // 文案
+          value: "string | number", // 选择的实际值, 必须唯一
+          description: '描述三', // 描述
       }, {
         icon: 'https://im2.zhongan.io/image/file/e707384e-5d89-468c-a00a-7d5d178ea46c',
-        label: '选项三', // 文案
+        label: '选项四', // 文案
         value: "string | number", // 选择的实际值, 必须唯一
-        description: '描述三', // 描述
+        description: '描述四', // 描述
       }
     ],
     confirmType: 'dialog',
@@ -219,7 +232,8 @@ export default class Radio extends PureComponent {
   };
 
   state = {
-    // checked: {},
+    checked: {}, // this.props.choices ? this.props.choices[0] : {},
+    group: [],
     disable: this.props.disable,
   };
 
@@ -231,7 +245,19 @@ export default class Radio extends PureComponent {
     }
   }
 
-  onConfirm = (checked) => {
+  onChecked = (checked) => {
+    this.setState({ checked });
+    if (this.state.group.indexOf(checked) < 0) {
+      this.state.group.push(checked);
+    } else {
+      this.state.group.splice(this.state.group.indexOf(checked), 1); // uncheck
+      this.setState({
+        checked: {},
+      });
+    }
+  }
+
+  onConfirm = () => {
     const {
       confirmType, confirmFields,
       onMessage,
@@ -239,34 +265,45 @@ export default class Radio extends PureComponent {
     this.setState({
       disable: true,
     });
-    if (Object.keys(checked).length === 0) return false;
+    const group = this.state.group;
+    if (Object.keys(this.state.group).length === 0) return false;
 
     const data = confirmFields.reduce((a, b) => Object.assign(a, { [b]: this.props[b] }), {});
-    // console.log('confirm: ', data);
+    
     onMessage(confirmType, {
       ...data,
       // value: this.state.checked.key,
       // selection: checked.label, // @TODO Bad Backend
-      label: checked.label,
-      value: checked.value,
-    }); 
+      label: group.length === 1 ? group[0].label : group.reduce((a, b) => `${a.label || a}, ${b.label}`),
+      value: group.length === 1 ? group[0].value : group.reduce((a, b) => `${a.value || a}, ${b.value}`),
+    });
+
+    // this.state.group.map(e =>
+    //   onMessage(confirmType, {
+    //     ...data,
+    //     selection: e.label,
+    //     label: e.label,
+    //     value: e.value,
+    //   }),
+    // );
   };
 
   render() {
     const {
-      id, step,
-      title, choices, disable,
-      confirmLabel, ...rest
+      id, step, avatar, content, confirmLabel,
+      title, choices = Checkbox.choices, disable,
+      ...rest
     } = this.props;
 
     const group = `${id}:${step}.${Math.random()}`;
+    const disabled = Object.keys(this.state.group).length === 0;
 
     return (
       <Wrapper>
         <Title>{title}</Title>
         <ChoicesWrapper>
-          {choices.map((e, index) => (
-            <Choice 
+        {choices.map((e, index) => (
+            <Choice
               key={index.toString()}
               group={group}
               disable={this.state.disable}
@@ -275,10 +312,11 @@ export default class Radio extends PureComponent {
               label={e.label}
               value={e.value}
               description={e.description}
-              onChecked={() => this.state.disable ? NOOP : this.onConfirm(e)}
+              onChecked={() => this.state.disable ? NOOP : this.onChecked(e)}
             />
           ))}
         </ChoicesWrapper>
+        <Button onClick={this.state.disable ? NOOP : this.onConfirm} disabled={disabled}>{confirmLabel}</Button>
       </Wrapper>
     );
   }
