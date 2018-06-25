@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-06-25 15:47:18
+ * @Last Modified time: 2018-06-25 17:23:42
  */
 
 import React, { PureComponent } from 'react';
@@ -103,7 +103,7 @@ export default class Image extends React.Component {
     ImageView.default.open({
       maxScale: 3,
       imagelist: [this.props.banner],
-    }, true, 'imageview');
+    }, true, '.imageview');
   };
 
   replaceImage = (image) => {
