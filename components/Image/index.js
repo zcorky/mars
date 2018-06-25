@@ -1,8 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
- * @Last Modified by: zero
- * @Last Modified time: 2018-05-07 14:52:02
+ * @Last Modified by: zhaoxiaoqi
+ * @Last Modified time: 2018-06-25 17:23:42
  */
 
 import React, { PureComponent } from 'react';
@@ -15,6 +15,7 @@ import Action from '../_internal/Action';
 import { SingleImgView } from 'react-imageview';
 import 'react-imageview/dist/react-imageview.min.css';
 
+import * as ImageView from './ImageView';
 // import { getImagePrefix } from 'utils';
 
 // import classes from './index.less';
@@ -93,19 +94,22 @@ export default class Image extends React.Component {
   complete = true;
 
   handleClickImage = () => {
-    SingleImgView.show({
+    // SingleImgView.show({
+    //   maxScale: 3,
+    //   // imagelist: [this.addPrefix(this.props.banner)],
+    //   imagelist: [this.props.banner],
+    //   close: () => {SingleImgView.hide();},
+    // });
+    ImageView.default.open({
       maxScale: 3,
-      // imagelist: [this.addPrefix(this.props.banner)],
       imagelist: [this.props.banner],
-      close: () => SingleImgView.hide(),
-    });
+    }, true, '.imageview');
   };
 
   replaceImage = (image) => {
     // this.props.onMessage('image:replace', this.props.dispatch, this.props.id, image);
     this.props.onMessage('image:replace', this.props.id, image);
   };
-
 
   upload = () => {
     const self = this;
