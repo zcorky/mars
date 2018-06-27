@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-06-26 13:24:13
+ * @Last Modified time: 2018-06-27 11:11:02
  */
 
 import React, { PureComponent } from 'react';
@@ -12,8 +12,8 @@ import styled from 'styled-components';
 import { Flex as rFlex, View as rView, Avatar, Icon } from 'elfen';
 import Action from '../_internal/Action';
 
-import { SingleImgView } from 'react-imageview';
-import 'react-imageview/dist/react-imageview.min.css';
+// import { SingleImgView } from 'react-imageview';
+// import 'react-imageview/dist/react-imageview.min.css';
 
 import * as ImageView from './ImageView';
 // import { getImagePrefix } from 'utils';
@@ -107,13 +107,13 @@ export default class Image extends React.Component {
     }, true, '.imageview');
   };
 
-  getImageList = (images) => {
+  getImageList = (images = []) => {
     let imageList = [];
     imageList = images.map(image => image.content.banner);
     return imageList;
   };
 
-  getCurrentImage = (images) => {
+  getCurrentImage = (images = []) => {
     let current = 0;
     images.map((image, index) => {
       if(image.content.banner === this.props.banner) {
