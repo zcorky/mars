@@ -9,10 +9,10 @@
 */
 
 import React, { PureComponent } from 'react';
-import { string, number, func, array, arrayOf, shape } from 'prop-types';
+import { string, func, array, arrayOf, shape } from 'prop-types';
 import styled from 'styled-components';
 
-import { View, Text, List, ListItem } from 'elfen';
+import { View, Text, List } from 'elfen';
 import { QuestionItem } from '../ListItem';
 import Action from '../_internal/Action';
 
@@ -115,7 +115,7 @@ export default class TextList extends PureComponent {
   };
 
   render() {
-    const {title, list, commands = [], onText, onSelect, onCommand, onMessage } = this.props;
+    const {title, list, commands = [], onSelect, onCommand, onMessage } = this.props;
     const disableTitle = !title;
 
     return (

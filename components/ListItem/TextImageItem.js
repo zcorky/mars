@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import { ListItem } from 'elfen'; 
-import { array, arrayOf, string, number, func, shape } from 'prop-types';
+import { string } from 'prop-types';
 
 // import styles from './index.less';
 const ListItemWrapper = styled.div`

@@ -44,17 +44,17 @@ const ChoicesWrapper = styled.div`
   } 
 `;
 
-const Button = styled.a`
-  font-size: 1.2rem;
-  color: #fff;
-  display: block;
-  height: 3.4rem;
-  line-height: 3.4rem;
-  text-align: center;
-  background-image: ${props => (props.disabled ? 'unset' : `linear-gradient(90deg, ${props.theme.palette.color3} 0%, ${props.theme.palette.color4} 99%)`)};
-  border-radius: 0  0 1.2rem 1.2rem;
-  background-color: ${props => (props.disabled ? props.theme.palette.color8 : 'none')};
-`;
+// const Button = styled.a`
+//   font-size: 1.2rem;
+//   color: #fff;
+//   display: block;
+//   height: 3.4rem;
+//   line-height: 3.4rem;
+//   text-align: center;
+//   background-image: ${props => (props.disabled ? 'unset' : `linear-gradient(90deg, ${props.theme.palette.color3} 0%, ${props.theme.palette.color4} 99%)`)};
+//   border-radius: 0  0 1.2rem 1.2rem;
+//   background-color: ${props => (props.disabled ? props.theme.palette.color8 : 'none')};
+// `;
 
 const ChoiceWrapper = styled.div`
   cursor: pointer;
@@ -255,8 +255,7 @@ export default class Radio extends PureComponent {
   render() {
     const {
       id, step,
-      title, choices, disable,
-      confirmLabel, ...rest
+      title, choices
     } = this.props;
 
     const group = `${id}:${step}.${Math.random()}`;
