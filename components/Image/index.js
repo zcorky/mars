@@ -1,8 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
- * @Last Modified by: zero
- * @Last Modified time: 2018-06-27 10:37:33
+ * @Last Modified by: zhaoxiaoqi
+ * @Last Modified time: 2018-06-27 15:19:39
  */
 
 import React, { PureComponent } from 'react';
@@ -102,9 +102,26 @@ export default class Image extends React.Component {
     // });
     ImageView.default.open({
       maxScale: 3,
-      imagelist: [this.props.banner],
+      imagelist: this.getImageList(this.props.imageList),
+      current: this.getCurrentImage(this.props.imageList),
     }, true, '.imageview');
   };
+
+  getImageList = (images) => {
+    let imageList = [];
+    imageList = images.map(image => image.content.banner);
+    return imageList;
+  };
+
+  getCurrentImage = (images) => {
+    let current = 0;
+    images.map((image, index) => {
+      if(image.content.banner === this.props.banner) {
+        current = index;
+      }
+    });
+    return current;
+  }
 
   replaceImage = (image) => {
     // this.props.onMessage('image:replace', this.props.dispatch, this.props.id, image);
