@@ -1,8 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
- * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-06-25 17:23:42
+ * @Last Modified by: zero
+ * @Last Modified time: 2018-06-27 10:37:33
  */
 
 import React, { PureComponent } from 'react';
@@ -12,8 +12,8 @@ import styled from 'styled-components';
 import { Flex as rFlex, View as rView, Avatar, Icon } from 'elfen';
 import Action from '../_internal/Action';
 
-import { SingleImgView } from 'react-imageview';
-import 'react-imageview/dist/react-imageview.min.css';
+// import { SingleImgView } from 'react-imageview';
+// import 'react-imageview/dist/react-imageview.min.css';
 
 import * as ImageView from './ImageView';
 // import { getImagePrefix } from 'utils';
