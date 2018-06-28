@@ -331,9 +331,8 @@ export default class Checkbox extends PureComponent {
 
   render() {
     const {
-      id, step, avatar, content, confirmLabel,
-      title, choices = Checkbox.choices, disable,
-      ...rest
+      id, step, confirmLabel,
+      title, choices = Checkbox.choices,
     } = this.props;
 
     const group = `${id}:${step}.${Math.random()}`;

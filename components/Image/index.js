@@ -2,14 +2,14 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-06-27 15:03:10
+ * @Last Modified time: 2018-06-28 14:02:27
  */
 
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { string, bool, func, array } from 'prop-types';
 // import classnames from 'classnames';
 import styled from 'styled-components';
-import { Flex as rFlex, View as rView, Avatar, Icon } from 'elfen';
+import { Flex as rFlex, View as rView, Icon } from 'elfen';
 import Action from '../_internal/Action';
 
 // import { SingleImgView } from 'react-imageview';
@@ -51,7 +51,7 @@ export default class Image extends React.Component {
   };
 
   static defaultProps = {
-    banner: null, // 'http://obzxlsphd.bkt.clouddn.com//zzz/images/v2-953608ff58261bdf314d03996a995a8d_r.jpg',
+    banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/v2-953608ff58261bdf314d03996a995a8d_r.jpg',
     client: false,
     commands: [],
     onSelect: () => {},
@@ -196,6 +196,7 @@ export default class Image extends React.Component {
               width: '100%',
               borderRadius: '.6rem',
             }}
+            alt=""
             role="presentation"
             src={banner}
             onClick={this.handleClickImage}
