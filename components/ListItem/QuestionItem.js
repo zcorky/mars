@@ -1,13 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 11:34:18
-<<<<<<< HEAD
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-19 20:22:01
-=======
- * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-05-03 10:50:06
->>>>>>> e6f283042940d542837d7c9d0cd85b5fe4d429e8
+ * @Last Modified time: 2018-06-28 11:21:33
  */
 
 import React, { PureComponent } from 'react';
