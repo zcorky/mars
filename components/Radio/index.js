@@ -296,8 +296,7 @@ export default class Radio extends PureComponent {
   render() {
     const {
       id, step,
-      title, choices, disable,
-      confirmLabel, ...rest
+      title, choices
     } = this.props;
 
     const group = `${id}:${step}.${Math.random()}`;

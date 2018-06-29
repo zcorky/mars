@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import { array, arrayOf, string, number, func, shape, oneOfType} from 'prop-types';
+import { arrayOf, string, number, func, shape, oneOfType} from 'prop-types';
 import styled from 'styled-components';
 
-import { View, List as rList, ListItem, Avatar as rAvatar } from 'elfen';
+import { View } from 'elfen';
 
 import { TextImageItem } from '../ListItem';
 import Action from '../_internal/Action';
@@ -42,11 +42,11 @@ const CommandWrapper = styled.div`
   flex: 1;
 `;
 
-const Avatar = styled(rAvatar)`
-  flexShrink: 0;
-  margin-left: ${props => (props.client ? '1rem' : 'unset')};
-  margin-right: ${props => (!props.client ? '1rem' : 'unset')};
-`;
+// const Avatar = styled(rAvatar)`
+//   flexShrink: 0;
+//   margin-left: ${props => (props.client ? '1rem' : 'unset')};
+//   margin-right: ${props => (!props.client ? '1rem' : 'unset')};
+// `;
 
 export default class TextImage extends PureComponent {
   static type = 'TEXT_IMAGE';
@@ -90,7 +90,7 @@ export default class TextImage extends PureComponent {
   render() {
     const { commands } = this.props;
     const { banner, title, subTitle, keyDescription, description, url } = this.props;
-    const { client, avatar, onSelect, onCommand } = this.props;
+    const { onSelect, onCommand } = this.props;
     // console.log('props: ', this.props);
     return (
       <Wrapper onClick={onSelect}>

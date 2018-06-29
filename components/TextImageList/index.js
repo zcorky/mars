@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import { array, arrayOf, string, number, func, shape } from 'prop-types';
+import { arrayOf, string, number, func, shape } from 'prop-types';
 import styled from 'styled-components';
 
-import { View, List as rList, ListItem as rListItem, Avatar as rAvatar } from 'elfen';
+import { View, List as rList, ListItem as rListItem } from 'elfen';
 
 import { TextImageItem } from '../ListItem';
 import Action from '../_internal/Action';
@@ -62,11 +62,11 @@ const Divide = styled.div`
   }
 `;
 
-const Avatar = styled(rAvatar)`
-  flexShrink: 0;
-  margin-left: ${props => (props.client ? '1rem' : 'unset')};
-  margin-right: ${props => (!props.client ? '1rem' : 'unset')};
-`;
+// const Avatar = styled(rAvatar)`
+//   flexShrink: 0;
+//   margin-left: ${props => (props.client ? '1rem' : 'unset')};
+//   margin-right: ${props => (!props.client ? '1rem' : 'unset')};
+// `;
 
 export default class TextImageList extends PureComponent {
   static label = '图文卡片';
@@ -131,7 +131,7 @@ export default class TextImageList extends PureComponent {
   };
 
   render() {
-    const { client, avatar, list, commands, onCommand, onSelect } = this.props;
+    const { list, commands, onCommand, onSelect } = this.props;
 
     return (
       <Wrapper onClick={onSelect}>
