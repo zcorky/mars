@@ -51,24 +51,24 @@ const ChoicesWrapper = styled.div`
        } 
       `
     } else {
-      if (self.innerWidth > 500) {
+      if (window.self.innerWidth > 500) {
         `margin-right: -1.5rem;`
       }
     }
   }}
 `;
 
-const Button = styled.a`
-  font-size: 1.2rem;
-  color: #fff;
-  display: block;
-  height: 3.4rem;
-  line-height: 3.4rem;
-  text-align: center;
-  background-image: ${props => (props.disabled ? 'unset' : `linear-gradient(90deg, ${props.theme.palette.color3} 0%, ${props.theme.palette.color4} 99%)`)};
-  border-radius: 0  0 1.2rem 1.2rem;
-  background-color: ${props => (props.disabled ? props.theme.palette.color8 : 'none')};
-`;
+// const Button = styled.a`
+//   font-size: 1.2rem;
+//   color: #fff;
+//   display: block;
+//   height: 3.4rem;
+//   line-height: 3.4rem;
+//   text-align: center;
+//   background-image: ${props => (props.disabled ? 'unset' : `linear-gradient(90deg, ${props.theme.palette.color3} 0%, ${props.theme.palette.color4} 99%)`)};
+//   border-radius: 0  0 1.2rem 1.2rem;
+//   background-color: ${props => (props.disabled ? props.theme.palette.color8 : 'none')};
+// `;
 
 const ChoiceWrapper = styled.div`
   cursor: pointer;
@@ -106,9 +106,9 @@ const ChoiceWrapper = styled.div`
         }
       `
     } else {
-      if (self.innerWidth <= 320) {
+      if (window.self.innerWidth <= 320) {
         `width: 100%;`
-      } else if(self.innerWidth > 320 && self.innerWidth <= 500) {
+      } else if(window.self.innerWidth > 320 && window.self.innerWidth <= 500) {
         `width: calc((100% - 1.5rem)/2 );`
       } else {
         `margin-right: 1.5rem;

@@ -58,7 +58,7 @@ const ChoicesWrapper = styled.div`
        } 
       `
     } else {
-      if (self.innerWidth > 500) {
+      if (window.self.innerWidth > 500) {
         `margin-right: -1.5rem;`
       }
     }
@@ -114,9 +114,9 @@ const ChoiceWrapper = styled.div`
         }
       `
     } else {
-      if (self.innerWidth <= 320) {
+      if (window.self.innerWidth <= 320) {
         `width: 100%;`
-      } else if(self.innerWidth > 320 && self.innerWidth <= 500) {
+      } else if(window.self.innerWidth > 320 && window.self.innerWidth <= 500) {
         `width: calc((100% - 1.5rem)/2 );`
       } else {
         `margin-right: 1.5rem;

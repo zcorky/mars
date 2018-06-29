@@ -10,6 +10,7 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
+    "@zcorky/react-gallery": "0.0.3",
     "react-imageview": "^1.2.1",
     "xss": "^0.3.7"
   },
