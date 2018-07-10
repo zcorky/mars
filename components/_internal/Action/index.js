@@ -21,7 +21,7 @@ const Label = styled(TypedLabel)`
   font-weight: bold;
   // color: #2AA5F9;
   // font-size: ${props => props.theme.palette.fontSize2};
-  color: ${props => props.theme.palette.color4};
+  color: ${props => props.theme[props.theme.current].action.color};
 `;
 
 const Button = styled.button`
