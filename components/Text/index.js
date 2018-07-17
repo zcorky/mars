@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-06-28 14:02:34
+ * @Last Modified time: 2018-07-17 18:46:51
  */
 
 import React, { PureComponent } from 'react';
@@ -18,11 +18,11 @@ import { filterUrl } from './utils';
 const NOOP = () => null;
 
 const Text = styled(rText)`
-  text-align: justify;
-  letter-spacing: 1px;
+  text-align: left;
+  letter-spacing: 0;
   
   position: relative;
-  line-height: 2rem;
+  line-height: ${props => (props.theme.palette.fontSize1 * 1.5)};
   padding: 1rem 1.4rem 1rem 1.4rem;
   display: inline-block;
   word-break: break-all;
