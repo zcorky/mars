@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-06-29 14:25:20
+ * @Last Modified time: 2018-07-17 14:42:07
  */
 
 import React from 'react';
@@ -104,7 +104,7 @@ export default class Image extends React.Component {
       maxScale: 3,
       imagelist: this.getImageList(this.props.imageList),
       current: this.getCurrentImage(this.props.imageList),
-    }, true, '.imageview');
+    }, this.props.isIFrame, '.imageview');
   };
 
   getImageList = (images) => {
