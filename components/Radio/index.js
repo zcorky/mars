@@ -147,7 +147,7 @@ const ChoiceRadioInput = styled.input`
   &:checked + label {
     margin-bottom: 1.2rem;
     border: 1px solid ${props => props.theme[props.theme.current].action.color};
-    box-shadow: 0 1px 4px 0 ${props => props.theme.palette.color4};
+    box-shadow: 0 1px 4px 0 ${props => props.theme[props.theme.current].action.color};
   }
 `;
 
