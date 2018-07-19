@@ -39,22 +39,36 @@ const ChoicesWrapper = styled.div`
   align-items: center;
   // width: 200px;
 
-  @media only screen and (min-device-width : 501px) {
-    margin-right: -1.5rem;  
-  } 
+  // @media only screen and (min-device-width : 501px) {
+  //   margin-right: -1.5rem;  
+  // } 
+
+  ${ props => {
+    if (!props.isIFrame) {
+       `
+       @media only screen and (min-device-width : 501px) {
+         margin-right: -1.5rem;  
+       } 
+      `
+    } else {
+      if (window.self.innerWidth > 500) {
+        `margin-right: -1.5rem;`
+      }
+    }
+  }}
 `;
 
-const Button = styled.a`
-  font-size: 1.2rem;
-  color: #fff;
-  display: block;
-  height: 3.4rem;
-  line-height: 3.4rem;
-  text-align: center;
-  background-image: ${props => (props.disabled ? 'unset' : `linear-gradient(90deg, ${props.theme.palette.color3} 0%, ${props.theme.palette.color4} 99%)`)};
-  border-radius: 0  0 1.2rem 1.2rem;
-  background-color: ${props => (props.disabled ? props.theme.palette.color8 : 'none')};
-`;
+// const Button = styled.a`
+//   font-size: 1.2rem;
+//   color: #fff;
+//   display: block;
+//   height: 3.4rem;
+//   line-height: 3.4rem;
+//   text-align: center;
+//   background-image: ${props => (props.disabled ? 'unset' : `linear-gradient(90deg, ${props.theme.palette.color3} 0%, ${props.theme.palette.color4} 99%)`)};
+//   border-radius: 0  0 1.2rem 1.2rem;
+//   background-color: ${props => (props.disabled ? props.theme.palette.color8 : 'none')};
+// `;
 
 const ChoiceWrapper = styled.div`
   cursor: pointer;
@@ -66,16 +80,43 @@ const ChoiceWrapper = styled.div`
   margin-bottom: 1.2rem;
   // box-shadow: ${props => (props.checked ? '0 1px 4px 0 rgba(32,172,244,0.56)' : 'none')};
 
-  @media only screen and (max-device-width : 320px) {
-    width: 100%;
-  }
-  @media only screen and (min-device-width : 321px) and (max-device-width : 500px) {
-      width: calc((100% - 1.5rem)/2 );
-  }
-  @media only screen and (min-device-width : 501px) {
-      margin-right: 1.5rem;
-      flex: 1;     //open in project
-  }
+  // @media only screen and (max-device-width : 320px) {
+  //   width: 100%;
+  // }
+  // @media only screen and (min-device-width : 321px) and (max-device-width : 500px) {
+  //   width: calc((100% - 1.5rem)/2 );
+  // }
+  // @media only screen and (min-device-width : 501px) {
+  //   margin-right: 1.5rem;
+  //   flex: 1;     //open in project
+  // }
+
+  ${ props => {
+    if (!props.isIFrame) {
+       `
+        @media only screen and (max-device-width : 320px) {
+          width: 100%;
+        }
+        @media only screen and (min-device-width : 321px) and (max-device-width : 500px) {
+          width: calc((100% - 1.5rem)/2 );
+        }
+        @media only screen and (min-device-width : 501px) {
+          margin-right: 1.5rem;
+          flex: 1;     //open in project
+        }
+      `
+    } else {
+      if (window.self.innerWidth <= 320) {
+        `width: 100%;`
+      } else if(window.self.innerWidth > 320 && window.self.innerWidth <= 500) {
+        `width: calc((100% - 1.5rem)/2 );`
+      } else {
+        `margin-right: 1.5rem;
+         flex: 1;     //open in project
+        `
+      }
+    }
+  }}
 `;
 
 const ChoiceRadioWrapper = styled.div`
@@ -105,8 +146,8 @@ const ChoiceRadioInput = styled.input`
 
   &:checked + label {
     margin-bottom: 1.2rem;
-    border: 1px solid ${props => props.theme.palette.color4};
-    box-shadow: 0 1px 4px 0 ${props => props.theme.palette.color4};
+    border: 1px solid ${props => props.theme[props.theme.current].action.color};
+    box-shadow: 0 1px 4px 0 ${props => props.theme[props.theme.current].action.color};
   }
 `;
 
@@ -255,8 +296,7 @@ export default class Radio extends PureComponent {
   render() {
     const {
       id, step,
-      title, choices, disable,
-      confirmLabel, ...rest
+      title, choices
     } = this.props;
 
     const group = `${id}:${step}.${Math.random()}`;

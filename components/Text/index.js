@@ -1,8 +1,8 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
- * @Last Modified by: zero
- * @Last Modified time: 2018-05-16 17:29:19
+ * @Last Modified by: zhaoxiaoqi
+ * @Last Modified time: 2018-07-17 18:46:51
  */
 
 import React, { PureComponent } from 'react';
@@ -18,18 +18,18 @@ import { filterUrl } from './utils';
 const NOOP = () => null;
 
 const Text = styled(rText)`
-  text-align: justify;
-  letter-spacing: 1px;
+  text-align: left;
+  letter-spacing: 0;
   
   position: relative;
-  line-height: 2rem;
+  line-height: ${props => (props.theme.palette.fontSize1 * 1.5)};
   padding: 1rem 1.4rem 1rem 1.4rem;
   display: inline-block;
   word-break: break-all;
   max-width: 85%;
   user-select: text;
   font-size: ${props => props.theme.palette.fontSize1};
-  color: ${props => (props.client ? '#fff' : '')};
+  color: ${props => (props.client ? props.theme[props.theme.current].text.color : props.theme.palette.color1)};
   // font-weight: ${props => (props.client ? '200' : '')};
   border-radius: ${props => (props.client ? '1.2rem 0 1.2rem 1.2rem' : '0 1.2rem 1.2rem 1.2rem')};
   background-color: ${props => (props.client ? props.theme[props.theme.current].text.backgroundColor : '#fff')};

@@ -1,20 +1,21 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
- * @Last Modified by: zero
- * @Last Modified time: 2018-05-07 14:52:02
+ * @Last Modified by: zhaoxiaoqi
+ * @Last Modified time: 2018-07-17 14:42:07
  */
 
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { string, bool, func, array } from 'prop-types';
 // import classnames from 'classnames';
 import styled from 'styled-components';
-import { Flex as rFlex, View as rView, Avatar, Icon } from 'elfen';
+import { Flex as rFlex, View as rView, Icon } from 'elfen';
 import Action from '../_internal/Action';
 
-import { SingleImgView } from 'react-imageview';
-import 'react-imageview/dist/react-imageview.min.css';
+// import { SingleImgView } from 'react-imageview';
+// import 'react-imageview/dist/react-imageview.min.css';
 
+import * as ImageView from './ImageView';
 // import { getImagePrefix } from 'utils';
 
 // import classes from './index.less';
@@ -50,7 +51,7 @@ export default class Image extends React.Component {
   };
 
   static defaultProps = {
-    banner: null, // 'http://obzxlsphd.bkt.clouddn.com//zzz/images/v2-953608ff58261bdf314d03996a995a8d_r.jpg',
+    banner: 'http://obzxlsphd.bkt.clouddn.com//zzz/images/v2-953608ff58261bdf314d03996a995a8d_r.jpg',
     client: false,
     commands: [],
     onSelect: () => {},
@@ -93,19 +94,39 @@ export default class Image extends React.Component {
   complete = true;
 
   handleClickImage = () => {
-    SingleImgView.show({
+    // SingleImgView.show({
+    //   maxScale: 3,
+    //   // imagelist: [this.addPrefix(this.props.banner)],
+    //   imagelist: [this.props.banner],
+    //   close: () => {SingleImgView.hide();},
+    // });
+    ImageView.default.open({
       maxScale: 3,
-      // imagelist: [this.addPrefix(this.props.banner)],
-      imagelist: [this.props.banner],
-      close: () => SingleImgView.hide(),
-    });
+      imagelist: this.getImageList(this.props.imageList),
+      current: this.getCurrentImage(this.props.imageList),
+    }, this.props.isIFrame, '.imageview');
   };
+
+  getImageList = (images) => {
+    let imageList = [];
+    imageList = images.map(image => image.content.banner);
+    return imageList;
+  };
+
+  getCurrentImage = (images) => {
+    let current = 0;
+    images.map((image, index) => {
+      if(image.content.banner === this.props.banner) {
+        current = index;
+      }
+    });
+    return current;
+  }
 
   replaceImage = (image) => {
     // this.props.onMessage('image:replace', this.props.dispatch, this.props.id, image);
     this.props.onMessage('image:replace', this.props.id, image);
   };
-
 
   upload = () => {
     const self = this;
@@ -175,6 +196,7 @@ export default class Image extends React.Component {
               width: '100%',
               borderRadius: '.6rem',
             }}
+            alt=""
             role="presentation"
             src={banner}
             onClick={this.handleClickImage}

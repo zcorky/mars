@@ -1,20 +1,14 @@
 /*
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 11:34:18
-<<<<<<< HEAD
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-04-19 20:22:01
-=======
- * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-05-03 10:50:06
->>>>>>> e6f283042940d542837d7c9d0cd85b5fe4d429e8
+ * @Last Modified time: 2018-06-28 14:02:25
  */
 
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Absolute, View, Text, List, ListItem, Avatar as rAvatar } from 'elfen';
+import { Absolute, View, Text, ListItem } from 'elfen';
 import Icon from '../_internal/Icon';
 
 const NOOP = () => null;
@@ -26,10 +20,6 @@ const QuestionIcon = styled(Icon)`
   width: 4rem;
   height: 4rem;
   color: #B6C0CC;
-`;
-
-const ActionWrapper = styled(View)`
-  margin-top: 1rem;
 `;
 
 const QuestionTextContent = styled(Text)`

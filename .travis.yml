@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - 8
+
+after_success: npm run build
+
+jobs:
+  include:
+    - stage: npm release
+      node_js: 8
+      script: echo "Deploying to npm"
+      deploy:
+        provider: npm
+        email: $NPM_AUTHOR_EMAIL
+        api_key: $NPM_API_KEY
+        skip_cleanup: true
+        on:
+          tags: true
+          all_branches: true

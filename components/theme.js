@@ -33,6 +33,7 @@ export default {
       shadowColor: palette.color11,
     },
     text: {
+      color: '#fff',
       backgroundColor: 'none',
       backgroundImage: 'linear-gradient(90deg, #41C8F9 0%, #0BA5F5 99%)',
       shadowColor: palette.color11,
@@ -68,6 +69,7 @@ export default {
       shadowColor: palette.color11,
     },
     text: {
+      color: '#fff',
       backgroundColor: 'none',
       backgroundImage: 'linear-gradient(90deg, #41C8F9 0%, #0BA5F5 99%)',
       shadowColor: palette.color11,
@@ -103,6 +105,7 @@ export default {
       shadowColor: palette.color10,
     },
     text: {
+      color: '#fff',
       backgroundColor: '#00C384',
       backgroundImage: 'none',
       shadowColor: palette.color10,
@@ -130,4 +133,69 @@ export default {
       backgroundColor: '#F5F6F6',
     },
   },
+
+  yellow: {
+    avatar: {
+      backgroundColor: '#FFEB00',
+      shadowColor: '#F2F2F2',
+    },
+    text: { // 文本
+      color: 'rgba(0, 0, 0, .7)', // 用户字体颜色
+      backgroundColor: '#FFEB00', // 用户文本背景颜色
+      shadowColor: '#F2F2F2',
+    },
+    action: { // 动作
+      color: '#FFEB00', // 文本颜色
+      shadowColor: '#F2F2F2', // 阴影
+    },
+    board: { // 聊天板
+      backgroundColor: '#F5F6F6', // 背景颜色
+    },
+    question: { // 问题卡片
+      titleColor: '#8B8B8B', // 标题颜色
+      contentColor: 'rgba(0, 0, 0, .7)', // 内容颜色
+      shadowColor: '#F2F2F2',
+    },
+    icon: { // 所有icon
+      color: '#999', // 颜色
+    },
+    navigation: { //
+      backgroundImage: 'linear-gradient(-180deg, rgba(255,255,255,0.11) 0%, rgba(246,242,188,0.20) 100%)',
+    },
+    input: { // 输入
+      backgroundColor: '#F5F6F6', // 背景色
+    },
+  },
 };
+
+
+/* 一套主题
+{
+  文本: {
+    用户字体颜色: '#fff',
+    用户文本背景颜色: '#FFEB00',
+    阴影颜色: '#F2F2EB',
+  },
+  动作: {
+    文本颜色: '#FFEB00',
+    阴影颜色: '#F2F2EB',
+  },
+  聊天板: {
+    背景颜色: '#F5F6F6',
+  },
+  卡片: {
+    标题颜色: '#8B8B8B',
+    内容颜色: 'rgba(0, 0, 0, .7)',
+    阴影颜色: '#F2F2EB',
+  },
+  图标: {
+    颜色: '#FFEB00',
+  },
+  导航: {
+    背景颜色: 'linear-gradient(-180deg, rgba(255,255,255,0.11) 0%, rgba(246,242,188,0.20) 100%)',
+  },
+  输入框: {
+    背景颜色: '#F5F6F6',
+  },
+}
+*/

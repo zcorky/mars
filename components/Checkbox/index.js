@@ -46,9 +46,23 @@ const ChoicesWrapper = styled.div`
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  @media only screen and (min-device-width : 501px) {
-    margin-right: -1.5rem;  
-  }
+  // @media only screen and (min-device-width : 501px) {
+  //   margin-right: -1.5rem;  
+  // }
+
+  ${ props => {
+    if (!props.isIFrame) {
+       `
+       @media only screen and (min-device-width : 501px) {
+         margin-right: -1.5rem;  
+       } 
+      `
+    } else {
+      if (window.self.innerWidth > 500) {
+        `margin-right: -1.5rem;`
+      }
+    }
+  }}
 `;
 
 const Button = styled.a`
@@ -74,16 +88,43 @@ const ChoiceWrapper = styled.div`
   margin-bottom: 1.2rem;
   // box-shadow: ${props => (props.checked ? '0 1px 4px 0 rgba(32,172,244,0.56)' : 'none')};
 
-  @media only screen and (max-device-width : 320px) {
-      width: 100%;
-  }
-  @media only screen and (min-device-width : 321px) and (max-device-width : 500px) {
-      width: calc((100% - 1.5rem)/2 );
-  }
-  @media only screen and (min-device-width : 501px) {
-      margin-right: 1.5rem;
-      flex: 1;     //open in project
-  }
+  // @media only screen and (max-device-width : 320px) {
+  //     width: 100%;
+  // }
+  // @media only screen and (min-device-width : 321px) and (max-device-width : 500px) {
+  //     width: calc((100% - 1.5rem)/2 );
+  // }
+  // @media only screen and (min-device-width : 501px) {
+  //     margin-right: 1.5rem;
+  //     flex: 1;     //open in project
+  // }
+
+  ${ props => {
+    if (!props.isIFrame) {
+       `
+        @media only screen and (max-device-width : 320px) {
+          width: 100%;
+        }
+        @media only screen and (min-device-width : 321px) and (max-device-width : 500px) {
+          width: calc((100% - 1.5rem)/2 );
+        }
+        @media only screen and (min-device-width : 501px) {
+          margin-right: 1.5rem;
+          flex: 1;     //open in project
+        }
+      `
+    } else {
+      if (window.self.innerWidth <= 320) {
+        `width: 100%;`
+      } else if(window.self.innerWidth > 320 && window.self.innerWidth <= 500) {
+        `width: calc((100% - 1.5rem)/2 );`
+      } else {
+        `margin-right: 1.5rem;
+         flex: 1;     //open in project
+        `
+      }
+    }
+  }}
 `;
 
 const ChoiceCheckboxWrapper = styled.div`
@@ -113,8 +154,8 @@ const ChoiceCheckboxInput = styled.input`
 
   &:checked + label {
     margin-bottom: 1.2rem;
-    border: 1px solid ${props => props.theme.palette.color4};
-    box-shadow: 0 1px 4px 0 ${props => props.theme.palette.color4};
+    border: 1px solid ${props => props.theme[props.theme.current].action.color};
+    box-shadow: 0 1px 4px 0 ${props => props.theme[props.theme.current].action.color};
   }
 `;
 
@@ -290,9 +331,8 @@ export default class Checkbox extends PureComponent {
 
   render() {
     const {
-      id, step, avatar, content, confirmLabel,
-      title, choices = Checkbox.choices, disable,
-      ...rest
+      id, step, confirmLabel,
+      title, choices = Checkbox.choices,
     } = this.props;
 
     const group = `${id}:${step}.${Math.random()}`;
