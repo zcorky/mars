@@ -27,8 +27,8 @@ const Title = styled.div`
   // top: 0;
   // width: 100%;
   overflow: hidden;
-  text-overflow: hidden;
-  white-space: nowrap;
+  text-overflow: ellipsis;
+  // white-space: nowrap;
 `;
 
 const ChoicesWrapper = styled.div`
