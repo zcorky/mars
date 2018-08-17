@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 import { connect } from 'dva';
 
-import Text from '../../../components/Text';
 import TextImage from '../../../components/TextImage';
 import Radio from '../../../components/Radio';
 import Checkbox from '../../../components/Checkbox';
 import Image from '../../../components/Image';
 import TextList from '../../../components/TextList';
 import TextImageList from '../../../components/TextImageList';
+import Text from '../../../components/Text';
 
 // import List from '../../../components/List';
 
