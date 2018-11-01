@@ -98,7 +98,7 @@ const KeyDescription = styled.span`
   color: ${props => props.theme.palette.color9};
 
   display: line-block;
-  max-width: 5rem;
+  max-width: 56px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -125,13 +125,13 @@ const Description = styled.span`
     if (!props.isIFrame) {
        return `
         @media only screen and (max-device-width : 320px) {
-          width: 5rem;
+          width: 56px;
         }
         @media only screen and (min-device-width : 321px) and (max-device-width : 375px) {
-          width: 9rem;
+          width: 108px;
         }
         @media only screen and (min-device-width : 376px) and (max-device-width : 500px) {
-          width: 12rem;
+          width: 144px;
         }
         @media only screen and (min-device-width : 501px) {
           width: 40rem;
@@ -139,11 +139,11 @@ const Description = styled.span`
       `
     } else {
       if (window.self.innerWidth <= 320) {
-        return `width: 5rem;`
+        return `width: 56px;`
       } else if(window.self.innerWidth > 320 && window.self.innerWidth <= 375) {
-        return `width: 9rem;`
+        return `width: 108px;`
       } else if(window.self.innerWidth > 375 && window.self.innerWidth <= 500) {
-        return `width: 12rem;`
+        return `width: 144px;`
       }else {
         return `width: 40rem;`
       }
