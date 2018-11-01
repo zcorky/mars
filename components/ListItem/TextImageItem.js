@@ -29,6 +29,12 @@ const Banner = styled.img`
 const Title = styled.div`
   // font-size: 1.4rem;
   // color: #000;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(100% - 75px);
+
   font-size: ${props => props.theme.palette.fontSize1};
   color: ${props => props.theme.palette.color1};
 
@@ -40,6 +46,12 @@ const Title = styled.div`
 const SubTitle = styled.div`
   // font-size: 1.2rem;
   // color: #889099;
+
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: calc(100% - 75px);
+
   font-size: ${props => props.theme.palette.fontSize2};
   color: ${props => props.theme.palette.color2};
   margin-top: .25rem;
@@ -86,7 +98,7 @@ const KeyDescription = styled.span`
   color: ${props => props.theme.palette.color9};
 
   display: line-block;
-  width: 4rem;
+  max-width: 5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -97,7 +109,7 @@ const Divide = styled.div`
   height: 1.2rem;
   // background-color: #889099;
   background-color: ${props => props.theme.palette.color2};
-  margin: 0 1rem;
+  margin: 0 0.5rem;
 `;
 
 // const Count = styled.span``;
@@ -108,6 +120,35 @@ const Description = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  ${ (props) => {
+    if (!props.isIFrame) {
+       return `
+        @media only screen and (max-device-width : 320px) {
+          width: 5rem;
+        }
+        @media only screen and (min-device-width : 321px) and (max-device-width : 375px) {
+          width: 9rem;
+        }
+        @media only screen and (min-device-width : 376px) and (max-device-width : 500px) {
+          width: 12rem;
+        }
+        @media only screen and (min-device-width : 501px) {
+          width: 40rem;
+        }
+      `
+    } else {
+      if (window.self.innerWidth <= 320) {
+        return `width: 5rem;`
+      } else if(window.self.innerWidth > 320 && window.self.innerWidth <= 375) {
+        return `width: 9rem;`
+      } else if(window.self.innerWidth > 375 && window.self.innerWidth <= 500) {
+        return `width: 12rem;`
+      }else {
+        return `width: 40rem;`
+      }
+    }
+  }}
 `;
 
 
@@ -142,7 +183,7 @@ export default class TextImageItem extends PureComponent {
           <SubTitle>{subTitle}</SubTitle>
           <DescriptionWrapper>
             <KeyDescription>{keyDescription}</KeyDescription>
-            <Divide />
+            {description && <Divide />}
             <Description>{description}</Description>
           </DescriptionWrapper>
         </Wrapper>
