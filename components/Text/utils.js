@@ -38,6 +38,12 @@ const textContainer = {
   EMAIL: [],
 };
 
+const options = {
+  whiteList: {
+    br: [],
+  }
+}
+
 export function transformSpecialChars(str) {
   return str.toString()
     .replace(/&/g, '&amp;')
@@ -96,5 +102,5 @@ export function transformReplacement2Url(text) {
 }
 
 export function filterUrl(text) {
-  return xss(transformReplacement2Url(transformText2Replacement(text)));
+  return xss(transformReplacement2Url(transformText2Replacement(text)), options);
 }
