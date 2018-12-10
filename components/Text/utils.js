@@ -102,5 +102,5 @@ export function transformReplacement2Url(text) {
 }
 
 export function filterUrl(text) {
-  return xss(transformReplacement2Url(transformText2Replacement(text)), options);
+  return transformReplacement2Url(transformText2Replacement(xss(text, options)));
 }
