@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-07-17 18:46:51
+ * @Last Modified time: 2018-12-26 16:37:57
  */
 
 import React, { PureComponent } from 'react';
@@ -175,12 +175,13 @@ export default class RText extends PureComponent {
 
   render() {
     const {
-      text, commands, 
+      text: preText, commands, 
       ack, activeAck, onSelect = NOOP, onCommand = NOOP,
       ...others
     } = this.props;
 
     const { client } = others;
+    const text = preText.split('\n').join('<br />');
 
     const ackSuccess = this.state.ackSuccess;
     const waitSuccess = this.state.waitSuccess;
