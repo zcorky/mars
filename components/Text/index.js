@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-12-26 16:37:57
+ * @Last Modified time: 2019-01-29 11:10:34
  */
 
 import React, { PureComponent } from 'react';
@@ -13,6 +13,7 @@ import Icon from '../_internal/Icon';
 import { View, Text as rText } from 'elfen';
 
 import Action from '../_internal/Action';
+import Evaluation from '../_internal/Evaluation';
 import { filterUrl } from './utils';
 
 const NOOP = () => null;
@@ -175,8 +176,8 @@ export default class RText extends PureComponent {
 
   render() {
     const {
-      text: preText, commands, 
-      ack, activeAck, onSelect = NOOP, onCommand = NOOP,
+      text: preText, commands, evaluate = false,
+      ack, activeAck, onSelect = NOOP, onCommand = NOOP, onEvaluteDetail = NOOP,
       ...others
     } = this.props;
 
@@ -185,7 +186,7 @@ export default class RText extends PureComponent {
 
     const ackSuccess = this.state.ackSuccess;
     const waitSuccess = this.state.waitSuccess;
-
+    console.log(evaluate);
     return (
       <TextWrapper client={client} onClick={onSelect}>
         {commands.length === 0 ? (
@@ -200,9 +201,20 @@ export default class RText extends PureComponent {
               dangerouslySetInnerHTML={{ __html: filterUrl(text) }}
             />
             <CommandWrapper>
-              {commands.map((e, i) => (
-                <Action key={i} onClick={() => onCommand(e)} {...e} />
-              ))}
+              {
+                evaluate && commands.length > 0 && !client &&
+                <Evaluation
+                  selectKey={commands.length === 1 ? commands[0].icon : null}
+                  options={commands}
+                  // style={{ position: 'absolute', bottom: 0 }}
+                  onClick={onEvaluteDetail}
+                />
+              }
+              { 
+                !evaluate && commands.map((e, i) => (
+                <Action key={i} onClick={onCommand} {...e} />
+                ))
+              }
             </CommandWrapper>
           </View>
         )}

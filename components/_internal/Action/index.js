@@ -40,7 +40,7 @@ const Button = styled.button`
   outline: none;
   margin-right: .5rem;
   box-shadow: 0 3px 5px 1px ${props => props.theme[props.theme.current].action.shadowColor};;
-  display: flex;
+  display: inline-flex;
   align-items: center;
 
   & > i {
