@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2019-01-29 11:10:34
+ * @Last Modified time: 2019-01-29 14:33:48
  */
 
 import React, { PureComponent } from 'react';
@@ -186,7 +186,6 @@ export default class RText extends PureComponent {
 
     const ackSuccess = this.state.ackSuccess;
     const waitSuccess = this.state.waitSuccess;
-    console.log(evaluate);
     return (
       <TextWrapper client={client} onClick={onSelect}>
         {commands.length === 0 ? (
