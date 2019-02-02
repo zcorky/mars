@@ -6,6 +6,7 @@ import { View, List as rList, ListItem as rListItem } from 'elfen';
 
 import { TextImageItem } from '../ListItem';
 import Action from '../_internal/Action';
+import Evaluation from '../_internal/Evaluation';
 // import styles from './index.less';
 
 const styles = {};
@@ -131,7 +132,7 @@ export default class TextImageList extends PureComponent {
   };
 
   render() {
-    const { list, commands, onCommand, onSelect } = this.props;
+    const { list, evaluate = false, commands, onCommand, onSelect, onEvaluteDetail } = this.props;
 
     return (
       <Wrapper onClick={onSelect}>
@@ -144,11 +145,23 @@ export default class TextImageList extends PureComponent {
               </ListItem>
             ))}
           </List>
-          <CommandWrapper>
-            {commands.map((e, i) => (
-              <Action key={i} onClick={() => onCommand(e)} {...e} />
-            ))}
-          </CommandWrapper>
+          {
+            evaluate && commands.length > 0 &&
+            <Evaluation
+              selectKey={commands.length === 1 ? commands[0].icon : null}
+              options={commands}
+              // style={{ position: 'absolute', bottom: 0 }}
+              onClick={onEvaluteDetail}
+            />
+          }
+          {
+            !evaluate && commands.length > 0 &&
+            <CommandWrapper>
+              {commands.map((e, i) => (
+                <Action key={i} onClick={() => onCommand(e)} {...e} />
+              ))}
+            </CommandWrapper>
+          }  
         </Content>
       </Wrapper>
     );

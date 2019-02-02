@@ -15,6 +15,7 @@ import styled from 'styled-components';
 import { View, Text, List } from 'elfen';
 import { QuestionItem } from '../ListItem';
 import Action from '../_internal/Action';
+import Evaluation from '../_internal/Evaluation';
 
 // import getRenderItembyType from './utils';
 
@@ -115,7 +116,9 @@ export default class TextList extends PureComponent {
   };
 
   render() {
-    const {title, list, commands = [], onSelect, onCommand, onMessage } = this.props;
+    const {
+      title, list, commands = [], evaluate = false, 
+      onSelect, onCommand, onMessage, onEvaluteDetail } = this.props;
     const disableTitle = !title;
 
     return (
@@ -129,11 +132,23 @@ export default class TextList extends PureComponent {
                 list.map((e, i) => <QuestionItem key={i} text={e.text} value={e.value} onClick={onMessage}/>)
             }
           </ListWrapper>
-          <CommandWrapper>
-            {commands.map((e, i) => (
-              <Action key={i} onClick={() => onCommand(e)} {...e} />
-            ))}
-          </CommandWrapper>
+          {
+            evaluate && commands.length > 0 &&
+            <Evaluation
+              selectKey={commands.length === 1 ? commands[0].icon : null}
+              options={commands}
+              // style={{ position: 'absolute', bottom: 0 }}
+              onClick={onEvaluteDetail}
+            />
+          }
+          {
+            !evaluate && commands.length > 0 &&   
+            <CommandWrapper>
+              {commands.map((e, i) => (
+                <Action key={i} onClick={() => onCommand(e)} {...e} />
+              ))}
+            </CommandWrapper>
+          }
         </CardWrapper>
       </Wrapper>
     );

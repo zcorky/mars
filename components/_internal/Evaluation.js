@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2019-01-09 16:34:28
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2019-01-29 11:44:20
+ * @Last Modified time: 2019-02-02 15:19:19
  */
 
 import React from 'react';
@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   height: 32px;
   display: inline-flex;
   flex-direction: row;
+  margin-top: 0.8rem;
 `;
 
 const Appraisal = styled(Icon)`

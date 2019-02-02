@@ -6,6 +6,7 @@ import { View } from 'elfen';
 
 import { TextImageItem } from '../ListItem';
 import Action from '../_internal/Action';
+import Evaluation from '../_internal/Evaluation';
 // import styles from './index.less';
 
 const Wrapper = styled(View)`
@@ -88,9 +89,9 @@ export default class TextImage extends PureComponent {
   };
 
   render() {
-    const { commands } = this.props;
+    const { commands, evaluate = false } = this.props;
     const { banner, title, subTitle, keyDescription, description, url } = this.props;
-    const { onSelect, onCommand } = this.props;
+    const { onSelect, onCommand, onEvaluteDetail } = this.props;
     // console.log('props: ', this.props);
     return (
       <Wrapper onClick={onSelect}>
@@ -104,11 +105,23 @@ export default class TextImage extends PureComponent {
                 description={description}
                 url={url} />
             </TextImageWrapper>
-            <CommandWrapper>
-              {commands.map((e, i) => (
-                <Action key={i} onClick={() => onCommand(e)} {...e} />
-              ))}
-            </CommandWrapper>
+            {
+              evaluate && commands.length > 0 &&
+              <Evaluation
+                selectKey={commands.length === 1 ? commands[0].icon : null}
+                options={commands}
+                // style={{ position: 'absolute', bottom: 0 }}
+                onClick={onEvaluteDetail}
+              />
+            }
+            {
+              !evaluate && commands.length > 0 && 
+              <CommandWrapper>
+                {commands.map((e, i) => (
+                  <Action key={i} onClick={() => onCommand(e)} {...e} />
+                ))}
+              </CommandWrapper>
+            }    
           </Content>
       </Wrapper>
     );

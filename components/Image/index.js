@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2018-07-17 14:42:07
+ * @Last Modified time: 2019-02-02 15:18:08
  */
 
 import React from 'react';
@@ -11,7 +11,7 @@ import { string, bool, func, array } from 'prop-types';
 import styled from 'styled-components';
 import { Flex as rFlex, View as rView, Icon } from 'elfen';
 import Action from '../_internal/Action';
-
+import Evaluation from '../_internal/Evaluation';
 // import { SingleImgView } from 'react-imageview';
 // import 'react-imageview/dist/react-imageview.min.css';
 
@@ -178,7 +178,8 @@ export default class Image extends React.Component {
 
   render() {
     const { error, progress } = this.state;
-    const { client, banner, commands, animation, onSelect, onCommand = NOOP } = this.props;
+    const { client, banner, commands, animation, evaluate = false, 
+      onSelect, onEvaluteDetail, onCommand = NOOP } = this.props;
     const flow = client ? 'row-reverse' : 'row';
     // const avatarClass = client ? classes.avatarClient : classes.avatar;
     // const getPrefix = this.props.getPrefix;
@@ -202,11 +203,22 @@ export default class Image extends React.Component {
             onClick={this.handleClickImage}
             onLoad={this.props.onLoad}
           />
-          <CommandWrapper>
-            {commands.map((e, i) => (
-              <Action key={i} onClick={() => onCommand(e)} {...e} />
-            ))}
-          </CommandWrapper>
+          {
+            evaluate && commands.length > 0 &&
+            <Evaluation
+              selectKey={commands.length === 1 ? commands[0].icon : null}
+              options={commands}
+              onClick={onEvaluteDetail}
+            />
+          }
+          {
+             !evaluate && commands.length > 0 &&
+              <CommandWrapper>
+              {commands.map((e, i) => (
+                <Action key={i} onClick={() => onCommand(e)} {...e} />
+              ))}
+            </CommandWrapper>
+          }
           <div
             style={{
               flex: 1,
@@ -216,7 +228,6 @@ export default class Image extends React.Component {
               transition: 'all .3s ease',
               opacity: animation && (progress !== 100) ? 1 : 0,
             }}
-            // className={classes.mask}
           />
           {!error ? (<div
             style={{
@@ -224,7 +235,6 @@ export default class Image extends React.Component {
               opacity: animation && (progress !== 100) ? 1 : 0,
               pointerEvents: this.props.uploadFile && animation && (progress !== 100) ? 'auto' : 'none',
             }}
-            // className={classes.data}
           >
             {/* parseInt(progress, 10) */}
           </div>) : (
