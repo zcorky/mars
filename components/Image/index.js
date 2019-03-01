@@ -178,7 +178,7 @@ export default class Image extends React.Component {
 
   render() {
     const { error, progress } = this.state;
-    const { client, banner, commands, animation, evaluate = false, evaluationType, 
+    const { client, banner, commands, animation, evaluate = false, ext, 
       onSelect, onEvaluteDetail, onCommand = NOOP } = this.props;
     const flow = client ? 'row-reverse' : 'row';
     // const avatarClass = client ? classes.avatarClient : classes.avatar;
@@ -208,7 +208,7 @@ export default class Image extends React.Component {
             <Evaluation
               selectKey={commands.length === 1 ? commands[0].icon : null}
               options={commands}
-              onClick={val => onEvaluteDetail(val, evaluationType)}
+              onClick={val => onEvaluteDetail(val, ext)}
               />
           }
           {

@@ -176,7 +176,7 @@ export default class RText extends PureComponent {
 
   render() {
     const {
-      text: preText, commands, evaluate = false, evaluationType,
+      text: preText, commands, evaluate = false, ext,
       ack, activeAck, onSelect = NOOP, onCommand = NOOP, onEvaluteDetail = NOOP,
       ...others
     } = this.props;
@@ -206,7 +206,7 @@ export default class RText extends PureComponent {
                   selectKey={commands.length === 1 ? commands[0].icon : null}
                   options={commands}
                   // style={{ position: 'absolute', bottom: 0 }}
-                  onClick={val => onEvaluteDetail(val, evaluationType)}
+                  onClick={val => onEvaluteDetail(val, ext)}
                 />
               }
               { 
