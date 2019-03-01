@@ -89,7 +89,7 @@ export default class TextImage extends PureComponent {
   };
 
   render() {
-    const { commands, evaluate = false } = this.props;
+    const { commands, evaluate = false, evaluationType } = this.props;
     const { banner, title, subTitle, keyDescription, description, url } = this.props;
     const { onSelect, onCommand, onEvaluteDetail } = this.props;
     // console.log('props: ', this.props);
@@ -111,8 +111,8 @@ export default class TextImage extends PureComponent {
                 selectKey={commands.length === 1 ? commands[0].icon : null}
                 options={commands}
                 // style={{ position: 'absolute', bottom: 0 }}
-                onClick={onEvaluteDetail}
-              />
+                onClick={val => onEvaluteDetail(val, evaluationType)}
+                />
             }
             {
               !evaluate && commands.length > 0 && 

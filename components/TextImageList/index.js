@@ -132,7 +132,7 @@ export default class TextImageList extends PureComponent {
   };
 
   render() {
-    const { list, evaluate = false, commands, onCommand, onSelect, onEvaluteDetail } = this.props;
+    const { list, evaluate = false, commands, evaluationType, onCommand, onSelect, onEvaluteDetail } = this.props;
 
     return (
       <Wrapper onClick={onSelect}>
@@ -151,8 +151,8 @@ export default class TextImageList extends PureComponent {
               selectKey={commands.length === 1 ? commands[0].icon : null}
               options={commands}
               // style={{ position: 'absolute', bottom: 0 }}
-              onClick={onEvaluteDetail}
-            />
+              onClick={val => onEvaluteDetail(val, evaluationType)}
+              />
           }
           {
             !evaluate && commands.length > 0 &&

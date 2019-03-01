@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2019-01-29 14:33:48
+ * @Last Modified time: 2019-03-01 14:10:58
  */
 
 import React, { PureComponent } from 'react';
@@ -176,7 +176,7 @@ export default class RText extends PureComponent {
 
   render() {
     const {
-      text: preText, commands, evaluate = false,
+      text: preText, commands, evaluate = false, evaluationType,
       ack, activeAck, onSelect = NOOP, onCommand = NOOP, onEvaluteDetail = NOOP,
       ...others
     } = this.props;
@@ -206,7 +206,7 @@ export default class RText extends PureComponent {
                   selectKey={commands.length === 1 ? commands[0].icon : null}
                   options={commands}
                   // style={{ position: 'absolute', bottom: 0 }}
-                  onClick={onEvaluteDetail}
+                  onClick={val => onEvaluteDetail(val, evaluationType)}
                 />
               }
               { 

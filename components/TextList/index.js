@@ -117,7 +117,7 @@ export default class TextList extends PureComponent {
 
   render() {
     const {
-      title, list, commands = [], evaluate = false, 
+      title, list, commands = [], evaluate = false, evaluationType,
       onSelect, onCommand, onMessage, onEvaluteDetail } = this.props;
     const disableTitle = !title;
 
@@ -138,7 +138,7 @@ export default class TextList extends PureComponent {
               selectKey={commands.length === 1 ? commands[0].icon : null}
               options={commands}
               // style={{ position: 'absolute', bottom: 0 }}
-              onClick={onEvaluteDetail}
+              onClick={val => onEvaluteDetail(val, evaluationType)}
             />
           }
           {

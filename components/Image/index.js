@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2019-02-02 15:18:08
+ * @Last Modified time: 2019-03-01 14:11:53
  */
 
 import React from 'react';
@@ -178,7 +178,7 @@ export default class Image extends React.Component {
 
   render() {
     const { error, progress } = this.state;
-    const { client, banner, commands, animation, evaluate = false, 
+    const { client, banner, commands, animation, evaluate = false, evaluationType, 
       onSelect, onEvaluteDetail, onCommand = NOOP } = this.props;
     const flow = client ? 'row-reverse' : 'row';
     // const avatarClass = client ? classes.avatarClient : classes.avatar;
@@ -208,8 +208,8 @@ export default class Image extends React.Component {
             <Evaluation
               selectKey={commands.length === 1 ? commands[0].icon : null}
               options={commands}
-              onClick={onEvaluteDetail}
-            />
+              onClick={val => onEvaluteDetail(val, evaluationType)}
+              />
           }
           {
              !evaluate && commands.length > 0 &&
