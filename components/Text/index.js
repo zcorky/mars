@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2019-03-01 14:10:58
+ * @Last Modified time: 2019-03-13 16:32:44
  */
 
 import React, { PureComponent } from 'react';
@@ -211,7 +211,7 @@ export default class RText extends PureComponent {
               }
               { 
                 !evaluate && commands.map((e, i) => (
-                <Action key={i} onClick={onCommand} {...e} />
+                  <Action key={i} onClick={() => onCommand(e)} {...e} />
                 ))
               }
             </CommandWrapper>
