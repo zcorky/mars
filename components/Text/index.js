@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-03-13 10:04:31
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2019-03-13 16:32:44
+ * @Last Modified time: 2019-03-27 10:54:46
  */
 
 import React, { PureComponent } from 'react';
@@ -26,7 +26,7 @@ const Text = styled(rText)`
   line-height: ${props => (props.theme.palette.fontSize1 * 1.5)};
   padding: 1rem 1.4rem 1rem 1.4rem;
   display: inline-block;
-  word-break: break-all;
+  word-wrap: break-word;
   max-width: 85%;
   user-select: text;
   font-size: ${props => props.theme.palette.fontSize1};
