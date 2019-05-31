@@ -274,7 +274,7 @@ export default class Radio extends PureComponent {
 
   onConfirm = (checked) => {
     const {
-      confirmType, confirmFields,
+      confirmType, confirmFields, flow = false,
       onMessage,
     } = this.props;
     this.setState({
@@ -286,6 +286,7 @@ export default class Radio extends PureComponent {
     // console.log('confirm: ', data);
     onMessage(confirmType, {
       ...data,
+      flow,
       // value: this.state.checked.key,
       // selection: checked.label, // @TODO Bad Backend
       label: checked.label,

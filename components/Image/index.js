@@ -2,7 +2,7 @@
  * @Author: zhaoxiaoqi
  * @Date: 2018-04-02 16:22:05
  * @Last Modified by: zhaoxiaoqi
- * @Last Modified time: 2019-03-01 14:11:53
+ * @Last Modified time: 2019-05-31 17:17:40
  */
 
 import React from 'react';
@@ -123,50 +123,50 @@ export default class Image extends React.Component {
     return current;
   }
 
-  replaceImage = (image) => {
-    // this.props.onMessage('image:replace', this.props.dispatch, this.props.id, image);
-    this.props.onMessage('image:replace', this.props.id, image);
-  };
+  // replaceImage = (image) => {
+  //   // this.props.onMessage('image:replace', this.props.dispatch, this.props.id, image);
+  //   this.props.onMessage('image:replace', this.props.id, image);
+  // };
 
-  upload = () => {
-    const self = this;
-    const replaceImage = this.replaceImage;
-    const xhr = new XMLHttpRequest(); // eslint-disable-line
-    const getImagePrefix = this.props.getImagePrefix;
-    const IMAGE = getImagePrefix();
-    // xhr.open('POST', 'http://12292-zis-microservices-za-im-image.test.za.net/oss/file/upload/', true);
-    xhr.open('POST', `${IMAGE}/upload/`, true);
-    xhr.onload = () => {};
+  // upload = () => {
+  //   const self = this;
+  //   const replaceImage = this.replaceImage;
+  //   const xhr = new XMLHttpRequest(); // eslint-disable-line
+  //   const getImagePrefix = this.props.getImagePrefix;
+  //   const IMAGE = getImagePrefix();
+  //   // xhr.open('POST', 'http://12292-zis-microservices-za-im-image.test.za.net/oss/file/upload/', true);
+  //   xhr.open('POST', `${IMAGE}/upload/`, true);
+  //   xhr.onload = () => {};
 
-    xhr.onerror = () => {
-      this.setState({ error: true });
-    };
-    xhr.onreadystatechange = function onreadystatechange() {
-      if (this.readyState !== 4) {
-        return;
-      }
-      if (this.status === 200) {
-        const json = JSON.parse(xhr.responseText);
-        // replaceImage(`http://12292-zis-microservices-za-im-image.test.za.net/oss/file/${json.token}`);
-        replaceImage(`${IMAGE}/${json.token}`);
-        console.log('ready');
+  //   xhr.onerror = () => {
+  //     this.setState({ error: true });
+  //   };
+  //   xhr.onreadystatechange = function onreadystatechange() {
+  //     if (this.readyState !== 4) {
+  //       return;
+  //     }
+  //     if (this.status === 200) {
+  //       const json = JSON.parse(xhr.responseText);
+  //       // replaceImage(`http://12292-zis-microservices-za-im-image.test.za.net/oss/file/${json.token}`);
+  //       replaceImage(`${IMAGE}/${json.token}`);
+  //       console.log('ready');
 
-      } else {
-        self.setState({ error: true });
-      }
-    };
+  //     } else {
+  //       self.setState({ error: true });
+  //     }
+  //   };
 
-    // disable progress
-    // xhr.upload.onprogress = (e) => {
-    //   if (e.lengthComputable) {
-    //     this.setState({ progress: (e.loaded / e.total) * 100 });
-    //   }
-    // };
+  //   // disable progress
+  //   // xhr.upload.onprogress = (e) => {
+  //   //   if (e.lengthComputable) {
+  //   //     this.setState({ progress: (e.loaded / e.total) * 100 });
+  //   //   }
+  //   // };
 
-    const formData = new FormData(); // eslint-disable-line
-    formData.append('file', this.props.banner);
-    xhr.send(formData);
-  };
+  //   const formData = new FormData(); // eslint-disable-line
+  //   formData.append('file', this.props.banner);
+  //   xhr.send(formData);
+  // };
 
   addPrefix = (banner) => {
     const getPrefix = this.props.getPrefix;

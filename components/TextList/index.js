@@ -117,7 +117,7 @@ export default class TextList extends PureComponent {
 
   render() {
     const {
-      title, list, commands = [], evaluate = false, ext,
+      title, list, commands = [], evaluate = false, ext, flow = false,
       onSelect, onCommand, onMessage, onEvaluteDetail } = this.props;
     const disableTitle = !title;
 
@@ -129,7 +129,7 @@ export default class TextList extends PureComponent {
           <ListWrapper disableTitle={disableTitle}>
             {list.length === 0 ? <View style={{ textAlign: 'center', padding: '2rem' }}>尚未发现常见问题</View> : null}
             {
-                list.map((e, i) => <QuestionItem key={i} text={e.text} value={e.value} onClick={onMessage}/>)
+              list.map((e, i) => <QuestionItem key={i} text={e.text} value={e.value} onClick={(type, values) => onMessage(type, {...values, flow})}/>)
             }
           </ListWrapper>
           {
